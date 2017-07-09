@@ -1,0 +1,12 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  items_description: Some description about items A
+  user: cacho_castaña
+  user_trip_publication: one
+  
+two:
+  items_description: Some description about items B
+  user: cacho_castaña
+  user_trip_publication: one
+

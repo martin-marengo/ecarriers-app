@@ -1,0 +1,17 @@
+one:
+  business_name: Transportista
+  email: cacho@uiooisjdad.com
+  phone_number: 3564505050
+  confirmed_at: <%= Date.today %>
+  api_token: api_token_one
+
+two:
+  business_name: Transportista 2
+  company_description: Some description
+  address: jonas_salk
+  email: carrier@transportista.com
+  encrypted_password: <%= Carrier.new.send(:password_digest, 'some password') %>
+  phone_number: 3564606060
+  confirmed_at: <%= Date.today %>
+  api_token: api_token_two
+

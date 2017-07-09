@@ -1,0 +1,13 @@
+<% if !@bids or @bids.blank? %>
+  $('#no-results-bids').css("display", "block");
+<% else %>
+  $('#no-results-bids').css("display", "none");
+<% end %>
+
+$('#bids-list').html('<%= j render partial: 'bids',
+                       collection: @bids, as: :bid %>');
+$('#pagination-container').html('<%= j will_paginate @bids, previous_label: 'Anterior', next_label: 'Siguiente', inner_window: 1 %>');
+
+$('#shipment-publication-actions').html('<%= render partial: 'actions', locales: { shipment_publication: @shipment_publication } %>');
+
+$('.pagination a').attr('data-remote', 'true');

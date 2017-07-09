@@ -1,0 +1,122 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div  class="page-header custom-page-header">
+        <div class="row">
+          <div id="show_user_publication_flash_container">
+            <%= flash_messages %>
+          </div>
+          <div class="col-md-9" id="<%= @bid ? @bid.id : '' %>">
+            <h3>
+              <span class="shipment-publication-first-header">
+                <%= @shipment_publication.title_text %>
+                <% if should_show_bid_button %>
+                  <span id="upper_link_to_bid">
+                    <% if @bid %>
+                        <%= link_to 'EDITAR OFERTA', edit_bid_path(@bid),
+                                    remote: true, class: 'btn btn-success btn-title-inline' %>
+                    <% else %>
+                        <%= link_to 'OFERTAR', new_bid_path(shipment_publication_id: @shipment_publication.id),
+                                    remote: true, class: 'btn btn-success btn-title-inline' %>
+                    <% end %>
+                  </span>
+                <% end %>
+                <% if @bid %>
+                    <span class="chat-button" style="margin-left: 0.5em; position:relative;">
+                      <% if @bid.conversation %>
+                          <%= render partial: 'conversations/existing_conversation_button', locals: { conversation: @bid.conversation } %>
+                      <% else %>
+                          <%= link_to new_from_bid_conversation_path(bid_id: @bid.id), method: :post, class: 'btn btn-info btn-chat-button',
+                                      style: 'margin-right: 0.5em;', remote: true do %>
+                              <i class="fa fa-comment"></i>
+                          <% end %>
+                      <% end %>
+                    </span>
+                <% end %>
+              </span>
+              <small>
+                &nbsp;<i class="fa fa-clock-o"></i>&nbsp;<%= @shipment_publication.publication_date %>
+                &nbsp;&nbsp;<i class="fa fa-user"></i>&nbsp;
+                <% if !@shipment_publication.client.full_name.empty? %>
+                    <%= @shipment_publication.client.full_name %>
+                    <% if !@shipment_publication.client.email.empty? %>
+                        <%= ', ' + @shipment_publication.client_email %>
+                    <% end %>
+                <% else if !@shipment_publication.client.email.empty? %>
+                        <%= @shipment_publication.client_email %>
+                    <% end %>
+                <% end %>
+              </small>
+            </h3>
+          </div>
+          <div class="col-md-3 bottom-align">
+            <h3 class="text-align-right">
+              <small>
+                <%= link_to content_tag(:i, '', class: 'fa fa-arrow-left') + ' Volver', :back %>
+              </small>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-12">
+
+      <div class="row">
+        <div class="container">
+          <div class="col-md-7">
+            <div class="map-container">
+              <%= hidden_field_tag :origin_lat, @shipment_publication.origin_lat %>
+              <%= hidden_field_tag :origin_lng, @shipment_publication.origin_lng %>
+              <%= hidden_field_tag :destination_lat, @shipment_publication.destination_lat %>
+              <%= hidden_field_tag :destination_lng, @shipment_publication.destination_lng %>
+              <%= hidden_field_tag :origin_text, @shipment_publication.origin_location_text %>
+              <%= hidden_field_tag :destination_text, @shipment_publication.destination_location_text %>
+              <div id="shipment_road_map" style="width: 600px; height: 450px;"></div>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <%= render partial: 'shared/shipment_publication_pickup_delivery_information',
+                       locals: {shipment_publication: @shipment_publication} %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <%= render partial: 'shipment_publication_items', locals: {shipment_publication: @shipment_publication } %>
+    </div>
+  </div>
+
+  <% if should_show_bid_button %>
+      <div class="row">
+        <div class="col-md-12" style="margin-top: 1em; margin-bottom: 2em; text-align: center;">
+          <div id="lower_link_to_bid">
+            <% if @bid%>
+                <%= link_to 'EDITAR OFERTA', edit_bid_path(@bid),
+                            remote: true, class: 'btn btn-success' %><br/>
+            <% else %>
+                <%= link_to 'OFERTAR', new_bid_path(shipment_publication_id: @shipment_publication.id, carrier_id: @carrier.id),
+                            remote: true, class: 'btn btn-success' %><br/>
+            <% end %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+
+  <% if @shipment_publication.carrier_scoring %>
+      <div class="row">
+        <div class="col-md-12">
+          <%= render partial: 'carrier_scoring', locals: {carrier_scoring: @shipment_publication.carrier_scoring } %>
+        </div>
+      </div>
+  <% end %>
+
+</div>

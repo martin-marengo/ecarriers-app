@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+
+    <div class="col-md-8">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>Editar datos</h4>
+        </div>
+        <div class="panel-body devise-panel">
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= show_messages %>
+
+          <div class="form-group">
+            <%= f.label 'Nombre' %><br />
+            <%= f.text_field :name, class: 'form-control', autofocus: true %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label 'Apellido' %><br />
+            <%= f.text_field :last_name, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label 'Email' %><br />
+            <%= f.email_field :email, class: 'form-control' %>
+          </div>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Esperando la confirmación del mail: <%= resource.unconfirmed_email %></div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label 'Contraseña' %> <i>(Déjalo en blanco si no lo quieres cambiar)</i><br />
+            <%= f.password_field :password, autocomplete: 'off', class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :current_password %> <i>(Necesitamos tu contraseña actual para confirmar los cambios)</i><br />
+            <%= f.password_field :current_password, autocomplete: 'off', class: 'form-control' %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit 'Actualizar', class: 'btn btn-primary'  %>
+          </div>
+        <% end %>
+
+          <br>
+
+          <p><%= button_to 'Cerrar Cuenta', registration_path(resource_name), class: 'btn btn-danger',
+                                         data: { confirm: '¿Estás seguro de cerrar tu cuenta de eCarriers?' }, method: :delete %></p>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>

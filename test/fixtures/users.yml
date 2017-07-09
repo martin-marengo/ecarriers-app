@@ -1,0 +1,13 @@
+cacho_castaña:
+  name: Cacho
+  last_name: Castaña
+  email: cachocastaña@cafelahumedad.com
+  encrypted_password: siteagarroconotrotemato
+  confirmed_at: <%= Date.today %>
+
+pepe_alfonso:
+  name: Pepe
+  last_name: Alfonso
+  email: pepe@alfonso.com
+  encrypted_password: algun_password
+  confirmed_at: <%= Date.today %>

@@ -1,0 +1,36 @@
+<%= form_for shipment_request, remote: true, html: {class: ''} do |f| %>
+
+    <div>
+      <%= show_errors_of shipment_request %>
+    </div>
+
+    <%= f.hidden_field :user_trip_publication_id, value: shipment_request.try(:user_trip_publication).try(:id) %>
+
+    <% if shipment_request.id %>
+        <% placeholder = 'Modifica tu pedido de envío' %>
+    <% else %>
+        <% placeholder = 'Describe los artículos que quieres enviar' %>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.text_area :items_description, value: '', class: 'form-control', rows: 2, cols: 30, maxlength: 200,
+                      placeholder: placeholder, autocomplete: :off %>
+    </div>
+
+    <div class="actions shipment-request-actions">
+      <% if shipment_request.id %>
+          <% if shipment_request.try(:budget).try(:accepted?) %>
+              <%= link_to 'Modificar pedido', '#', class: 'btn btn-primary disabled' %>
+              <%= link_to 'Eliminar', '#', class: 'btn btn-danger disabled' %>
+          <% else %>
+              <%= f.submit 'Modificar pedido', class: 'btn btn-primary', data: { disable_with: 'Procesando...' } %>
+              <%= link_to 'Eliminar', shipment_request_path(shipment_request), method: :delete, remote: true,
+                          class: 'btn btn-danger',
+                          data: { disable_with: 'Procesando...', confirm: '¿Deseas eliminar este pedido de envío?' }%>
+          <% end %>
+      <% else %>
+          <%= f.submit 'Pedir envío', class: 'btn btn-primary', data: { disable_with: 'Procesando...' } %>
+      <% end %>
+    </div>
+
+<% end %>

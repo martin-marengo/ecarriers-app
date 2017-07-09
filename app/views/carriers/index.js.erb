@@ -1,0 +1,38 @@
+<% if !@shipment_publications or @shipment_publications.blank? %>
+  $('#no-results').css("display", "block");
+<% else %>
+  $('#no-results').css("display", "none");
+<% end %>
+
+// Si la respuesta es por paginacion, se añade el contenido al final con append().
+// Si la respuesta es por filtrado (existen los parametros de filtrado), se reemplaza el contenido con html().
+<% if params[:pagination] %>
+  var delimiter =
+      $('<div class="page-delimiter" data-page="<%= params[:page] %>"></div>');
+  $('#shipment_publications').append(delimiter);
+  $('#shipment_publications').append('<%= j render partial: 'shipment_publication_list_item',
+                         collection: @shipment_publications, as: :shipment_publication %>');
+
+  <% if @shipment_publications.next_page %>
+    $('.pagination').replaceWith('<%= j will_paginate @shipment_publications, params: { categories: params[:categories], pagination: true } %>');
+  <% else %>
+    $('#infinite-scrolling .pagination').remove();
+    // Delete current footer if axists and append a new one.
+    $(".footer-dashboard").remove();
+    $('#shipment_publications').append('<%= j render partial: 'layouts/footer_dashboard' %>');
+  <% end %>
+<% else %>
+  // Si es filtrado, reestablecer la vista por completo
+  $('#shipment_publications').html('<%= j link_to '', carriers_path, id: 'update_publication', style: 'display: none' %>');
+  $('#shipment_publications').append('<%= j render partial: 'shipment_publication_list_item',
+                       collection: @shipment_publications, as: :shipment_publication %>');
+
+  <% if @shipment_publications.next_page %>
+    $('#infinite-scrolling').html('<%= j will_paginate @shipment_publications, params: { categories: params[:categories], pagination: true } %>');
+  <% else %>
+    $('#infinite-scrolling .pagination').remove();
+    // Delete current footer if axists and append a new one.
+    $(".footer-dashboard").remove();
+    $('#shipment_publications').append('<%= j render partial: 'layouts/footer_dashboard' %>');
+  <% end %>
+<% end %>

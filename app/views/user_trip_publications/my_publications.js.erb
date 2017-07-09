@@ -1,0 +1,20 @@
+<% if !@user_trip_publications or @user_trip_publications.blank? %>
+  $('#no-results').css("display", "block");
+<% else %>
+  $('#no-results').css("display", "none");
+<% end %>
+
+<% if params[:pagination] %>
+  var delimiter =
+      $('<div class="page-delimiter" data-page="<%= params[:page] %>"></div>');
+  $('#user_trip_publications').append(delimiter);
+  $('#user_trip_publications').append('<%= j render partial: 'trip_list_item',
+                           collection: @user_trip_publications, as: :user_trip_publication %>');
+
+  <% if @user_trip_publications.next_page %>
+    $('.pagination').replaceWith('<%= j will_paginate @user_trip_publications %>');
+  <% else %>
+    $('#infinite-scrolling .pagination').remove();
+    $('#user_trip_publications').append('<%= j render partial: 'layouts/footer_dashboard' %>');
+  <% end %>
+<% end %>

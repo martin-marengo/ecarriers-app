@@ -1,0 +1,78 @@
+one:
+  title: One
+  special_care: false
+  blanket_wrap: false
+  canceled: false
+  client: cacho_castaña (User)
+  category: all_requested
+  pickup_address: jonas_salk
+  delivery_address: buenos_aires
+  pickup_service_condition: one
+  delivery_service_condition: one
+  accepted_bid: one
+  carrier: one
+  status: <%= ShipmentPublication::STATUS_WAITING_PICKUP %>
+  trip: one
+
+two:
+  title: Two
+  special_care: false
+  blanket_wrap: false
+  canceled: false
+  client: one (User)
+  category: all_requested
+  pickup_address: jonas_salk
+  delivery_address: buenos_aires
+  pickup_service_condition: one
+  delivery_service_condition: one
+  accepted_bid: two
+  status: <%= ShipmentPublication::STATUS_WAITING_PICKUP %>
+  trip: two
+  
+three:
+  title: One
+  special_care: false
+  blanket_wrap: false
+  canceled: false
+  client: cacho_castaña (User)
+  category: all_requested
+  pickup_address: jonas_salk
+  delivery_address: buenos_aires
+  pickup_service_condition: one
+  delivery_service_condition: one
+  accepted_bid: one
+  carrier: one
+  status: <%= ShipmentPublication::STATUS_WAITING_PICKUP %>
+
+shipment_publication_without_accepted_bid:
+  title: Shipment publication without an Accepted Bid
+  special_care: false
+  blanket_wrap: false
+  canceled: false
+  client: cacho_castaña (User)
+  category: all_requested
+  pickup_address: jonas_salk
+  delivery_address: buenos_aires
+  pickup_service_condition: one
+  delivery_service_condition: one
+  status: <%= ShipmentPublication::STATUS_EVALUATING_BIDS %>
+
+delivered:
+  title: Delivered
+  special_care: false
+  blanket_wrap: false
+  canceled: false
+  client: pepe_alfonso (User)
+  category: all_requested
+  pickup_address: jonas_salk
+  delivery_address: buenos_aires
+  pickup_service_condition: one
+  delivery_service_condition: one
+  accepted_bid: three
+  status: <%= ShipmentPublication::STATUS_WAITING_PICKUP %>
+  trip: delivered
+
+incomplete:
+  special_care: false
+  blanket_wrap: false
+  canceled: false

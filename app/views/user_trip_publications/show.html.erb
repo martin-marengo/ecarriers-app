@@ -1,0 +1,111 @@
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="page-header custom-page-header">
+        <div class="row">
+
+          <%= flash_messages %>
+
+          <!-- TITLE + INFO -->
+          <div class="col-md-9">
+            <h3><%= @user_trip_publication.title %>
+              <br/>
+              <small>
+                &nbsp;<i class="fa fa-clock-o"></i>&nbsp;<%= @user_trip_publication.publication_date %>
+                &nbsp;&nbsp;<i class="fa fa-user"></i>&nbsp;<%= "#{@user_trip_publication.user_name}, #{@user_trip_publication.user_email}" %>
+              </small>
+            </h3>
+          </div>
+          <!-- END TITLE + INFO -->
+
+          <!-- BACK TO PUBLICATIONS -->
+          <div class="col-md-3 bottom-align">
+
+            <h3 class="text-align-right">
+              <small>
+                <%= link_to content_tag(:i, '', class: 'fa fa-arrow-left') + ' Volver a las publicaciones', user_trip_publications_path %>
+              </small>
+            </h3>
+          </div>
+
+          <!-- END BACK TO PUBLICATIONS -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END HEADER -->
+
+  <!-- BODY -->
+  <div class="row">
+
+    <!-- PUBLICATION DETAIL -->
+    <div class="col-md-12">
+
+      <!-- SHIPMENT_REQUEST -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="well well-sm" id="shipment_request_owner_view">
+            <%= render partial: 'shipment_requests/owner_view', locals: {shipment_request: @shipment_request} %>
+          </div>
+        </div>
+      </div>
+      <!-- END SHIPMENT_REQUEST -->
+
+      <!-- MAIN DETAIL -->
+      <div class="row">
+
+        <!-- MAP -->
+        <div class="col-md-7">
+          <div class="map-container">
+            <%= hidden_field_tag :origin_lat, @user_trip_publication.origin_lat %>
+            <%= hidden_field_tag :origin_lng, @user_trip_publication.origin_lng %>
+            <%= hidden_field_tag :destination_lat, @user_trip_publication.destination_lat %>
+            <%= hidden_field_tag :destination_lng, @user_trip_publication.destination_lng %>
+            <%= hidden_field_tag :origin_text, @user_trip_publication.origin_location_description %>
+            <%= hidden_field_tag :destination_text, @user_trip_publication.destination_location_description %>
+            <div id="shipment_road_map" style="width: 600px; height: 450px;"></div>
+          </div>
+        </div>
+        <!-- END MAP -->
+
+        <!-- ORIGIN / DESTINATION WELLS -->
+        <div class="col-md-5">
+
+          <%# ORIGIN WELL %>
+          <div class="well well-sm">
+            <h4>Orígen: <%= @user_trip_publication.departure_date_time %></h4>
+            <p><strong><%= @user_trip_publication.origin_location_description %></strong></p>
+          </div>
+
+          <%# DESTINATION WELL %>
+          <div class="well well-sm">
+            <h4>Destino: <%= @user_trip_publication.arrival_date_time %></h4>
+            <p><strong><%= @user_trip_publication.destination_location_description %></strong></p>
+          </div>
+
+        </div>
+        <!-- END ORIGIN / DESTINATION WELLS -->
+
+      </div>
+      <!-- END MAIN DETAIL -->
+
+      <!-- VEHICLE_DESCRIPTION -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="jumbotron">
+            <h3><strong>Vehículo - Tipo de carga</strong></h3>
+            <p><%= @user_trip_publication.vehicle_description %></p>
+          </div>
+        </div>
+      </div>
+      <!-- END VEHICLE_DESCRIPTION -->
+    </div>
+    <!-- END PUBLICATION DETAIL -->
+
+  </div>
+  <!-- END BODY -->
+
+</div>

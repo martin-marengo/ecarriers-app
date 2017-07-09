@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : 'eCarriers' %>" />
+  <meta name="author" content="Martín Marengo (marengo.martin@gmail.com) - Agustín Ruatta (agustinruatta@gmail.com)">
+
+  <%= favicon_link_tag 'favicon-big.png' %>
+
+  <title><%= content_for?(:title) ? yield(:title) : 'eCarriers' %></title>
+
+  <script src="<%= "#{Rails.application.secrets.google_map_url}" %>"></script>
+
+  <%= stylesheet_link_tag 'application_carrier_dashboard', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application_carrier_dashboard', 'data-turbolinks-track' => true %>
+
+  <%= csrf_meta_tags %>
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+<body>
+
+  <div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand">
+          <%= link_to image_tag('isologo_blue_3.png'), carriers_path %>
+        </span>
+        <%#= link_to 'eCarriers', carriers_path, class: 'navbar-brand' %>
+      </div>
+      <!-- /.navbar-header -->
+
+      <% if carrier_signed_in? %>
+        <ul class="nav navbar-top-links navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-truck"></i> <%= @carrier.business_name %> <b class="caret"></b></a>
+            <ul class="dropdown-menu dropdown-user">
+              <li>
+                <%= link_to content_tag(:i, '', class: 'fa fa-home') + ' Inicio', root_path %>
+              </li>
+              <li>
+                <%= link_to content_tag(:i, '', class: 'fa fa-pencil') + ' Editar perfil', edit_carrier_registration_path %>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to content_tag(:i, '', class: 'fa fa-sign-out') + ' Cerrar Sesión',
+                            destroy_carrier_session_path, method: :delete %>
+              </li>
+            </ul>
+            <!-- /.dropdown-user -->
+          </li>
+          <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+      <% end %>
+
+      <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+          <ul class="nav" id="side-menu">
+            <li class="sidebar-search">
+              <div>
+                <% if @carrier.profile_picture.exists? %>
+                  <%= link_to image_tag(@carrier.profile_picture.url(:thumb), class: 'media-object'),
+                              carriers_path, class: 'img-thumbnail' %>
+                <% else %>
+                    <%= link_to image_tag('missing_thumb.jpg', class: 'media-object',
+                                          :size => ApplicationHelper::PROFILE_IMG_SIZE),
+                                carriers_path, class: 'img-thumbnail' %>
+                <% end %>
+                <div>
+                  <strong><%= @carrier.email %></strong>
+                </div>
+              </div>
+            </li>
+            <li>
+              <%= link_to content_tag(:i, '', class: 'fa fa-truck fa-fw') + ' Encontrar Envíos', carriers_path,
+                          class: (controller?('carriers') and action?('index')) ? 'active' : '' %>
+            </li>
+            <li>
+              <%= link_to content_tag(:i, '', class: 'fa fa-th-list fa-fw') + ' Mis Viajes' + content_tag(:span, '', class: 'fa arrow'), '#',
+                          class: (controller?('trips')) ? 'active' : ''%>
+              <ul class="nav nav-second-level">
+                <li class="active">
+                  <%= link_to content_tag(:i, '', class: 'fa arrow') + 'Administrar Viajes', 
+                              '#', class: (controller?('trips')) ? 'active' : '' %>
+                  
+                  <ul class="nav nav-third-level collapse in" style="">
+                    <li>
+                      <%= link_to 'Crear viaje', new_trip_path,
+                                  class: (controller?('trips') and action?('new')) ? 'active' : '' %>
+                    </li>
+                    <li>
+                      <%= link_to 'Viajes pendientes', show_mark_as_driving_trips_path,
+                                  class: (controller?('trips') and action?('show_mark_as_driving')) ? 'active' : '' %>
+                    </li>
+                    <li>
+                      <%= link_to 'Viajes en curso', show_mark_as_finished_trips_path,
+                                  class: (controller?('trips') and action?('mark_as_finished')) ? 'active' : '' %>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <%= link_to 'Envíos pendientes', pending_shipments_carriers_path,
+                              class: (controller?('carriers') and action?('pending_shipments')) ? 'active' : '' %>
+                </li>
+                <li>
+                  <%= link_to 'Envíos realizados', delivered_shipments_carriers_path,
+                              class: (controller?('carriers') and action?('delivered_shipments')) ? 'active' : '' %>
+                </li>
+                <li>
+                  <%= link_to 'Mi reputación', scorings_carriers_path, 
+                              class: (controller?('carriers') and action?('scorings')) ? 'active' : '' %>
+                </li>
+              </ul>
+              <!-- /.nav-second-level -->
+            </li>
+            <li>
+              <%= link_to content_tag(:i, '', class: 'fa fa-gavel fa-fw') + ' Ofertas' + content_tag(:span, '', class: 'fa arrow'), '#',
+                          class: (controller?('bids')) ? 'active' : ''%>
+              <ul class="nav nav-second-level">
+                <li>
+                  <%= link_to 'Ofertas Pendientes', pending_bids_path, class: (controller?('bids') and action?('pending')) ? 'active' : '' %>
+                </li>
+                <li>
+                  <%= link_to 'Mis Ofertas', bids_path, class: (controller?('bids') and action?('index')) ? 'active' : '' %>
+                </li>
+              </ul>
+              <!-- /.nav-second-level -->
+            </li>
+            <li>
+              <%= link_to content_tag(:i, '', class: 'fa fa-bar-chart-o fa-fw') + ' Estadísticas', '#',
+                          class: (controller?('carrier_statistics')) ? 'active' : '' %>
+              <ul class="nav nav-second-level">
+                <li>
+                  <%= link_to 'Destinos más demandados', most_requested_destinations_carrier_statistics_path, class: (controller?('carrier_statistics') and action?('destination_statistics')) ? 'active' : '' %>
+                </li>
+                <li>
+                  <%= link_to 'Ingresos mensuales', revenues_carrier_statistics_path, class: (controller?('carrier_statistics') and action?('revenues')) ? 'active' : '' %>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <%= link_to content_tag(:i, '', class: 'fa fa-download fa-fw') + ' eCarriers App', ecarriers_app_carriers_path,
+                          class: (controller?('carriers') and action?('ecarriers_app')) ? 'active' : '' %>
+            </li>
+          </ul>
+        </div>
+        <!-- /.sidebar-collapse -->
+      </div>
+      <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+      <div class="loading">
+        <div class="loader"></div>
+      </div>
+      <%= yield %>
+    </div>
+
+  </div>
+  <!-- /#wrapper -->
+
+</body>
+</html>

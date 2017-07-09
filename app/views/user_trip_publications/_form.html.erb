@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-2"></div>
+
+    <div class="col-md-8">
+      <div  class="page-header custom-page-header">
+        <%= flash_messages %>
+        <h2><%= title %></h2>
+      </div>
+    </div>
+
+    <div class="col-md-2"></div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-2"></div>
+
+    <div class="col-md-8">
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>Detalles del viaje</h4>
+        </div>
+
+        <div class="panel-body">
+
+          <%= form_for(@user_trip_publication) do |f| %>
+              <%= show_errors_of @user_trip_publication if @user_trip_publication.errors.any? %>
+
+
+              <div class="form-group">
+                <div class="row">
+
+                  <div class="form-group col-xs-6">
+                    <%= f.label 'Desde:' %><br/>
+                    <%= f.text_field :origin_location_description, class: 'form-control geo-input', placeholder: 'Ciudad origen', id: 'origin_description' %>
+                    <%= f.hidden_field :origin_lat, value: @user_trip_publication.origin_lat, id: 'origin_lat' %>
+                    <%= f.hidden_field :origin_lng, value: @user_trip_publication.origin_lng, id: 'origin_lng' %>
+
+                    <%= f.fields_for :origin_city, @user_trip_publication.origin_city do |i| %>
+                        <%= i.hidden_field :city_name, value: @user_trip_publication.origin_city.try(:name), id: 'origin_city_name' %>
+                        <%= i.hidden_field :region_name, value: @user_trip_publication.origin_city.try(:region_name), id: 'origin_region_name' %>
+                        <%= i.hidden_field :country_name, value: @user_trip_publication.origin_city.try(:country_name), id: 'origin_country_name' %>
+                    <% end %>
+                  </div>
+
+                  <div class="form-group col-xs-6">
+                    <%= f.label 'Hasta:' %><br/>
+                    <%= f.text_field :destination_location_description, class: 'form-control geo-input', placeholder: 'Ciudad destino', id: 'destination_description' %>
+                    <%= f.hidden_field :destination_lat, value: @user_trip_publication.destination_lat, id: 'destination_lat' %>
+                    <%= f.hidden_field :destination_lng, value: @user_trip_publication.destination_lng, id: 'destination_lng' %>
+
+                    <%= f.fields_for :destination_city, @user_trip_publication.destination_city do |i| %>
+                        <%= i.hidden_field :city_name, value: @user_trip_publication.destination_city.try(:name), id: 'destination_city_name' %>
+                        <%= i.hidden_field :region_name, value: @user_trip_publication.destination_city.try(:region_name), id: 'destination_region_name' %>
+                        <%= i.hidden_field :country_name, value: @user_trip_publication.destination_city.try(:country_name), id: 'destination_country_name' %>
+                    <% end %>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-4">
+                    <%= f.label 'Fecha de partida:' %>
+                    <%= f.text_field :departure_date, class: 'datepicker datepicker-with-limit form-control', placeholder: 'Indica una fecha' %>
+                  </div>
+                  <div class="col-xs-8">
+                    <%= f.label 'Hora:' %><br/>
+                    <%= f.time_select :departure_time, {minute_step: 30, default: {hour: '12', minute: '0'}}, {class: 'selectpicker'} %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-4">
+                    <%= f.label 'Fecha de llegada estimada:' %>
+                    <%= f.text_field :arrival_date, class: 'datepicker datepicker-with-limit form-control', placeholder: 'Indica una fecha' %>
+                  </div>
+                  <div class="col-xs-8">
+                    <%= f.label 'Hora:' %><br/>
+                    <%= f.time_select :arrival_time, {minute_step: 30, default: {hour: '13', minute: '0'}}, {class: 'selectpicker'} %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Vehículo' %>
+                <%= f.text_area :vehicle_description, class: 'form-control',
+                                placeholder: 'Describe el vehículo que usarás, o el tipo de carga que puedes llevar',
+                                rows: 2, maxlength: '150' %>
+              </div>
+
+              <div class="actions form-row">
+                <%= link_to content_tag(:i, '', class: 'fa fa-arrow-left') + ' Atrás', :back, style: 'margin-right: 1em;' %>
+                <%= f.submit submit_text, class: 'btn btn-success btn-lg' %>
+              </div>
+          <% end %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-2"></div>
+
+  </div>
+</div>

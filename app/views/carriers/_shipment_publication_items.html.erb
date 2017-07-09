@@ -1,0 +1,57 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h4>Artículos a enviar</h4>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <h4><%= shipment_publication.full_category_name %></h4>
+        <% if shipment_publication.items %>
+            <p><strong>Cantidad de artículos:</strong> <%= @shipment_publication.items.size %></p>
+        <% end %>
+      </div>
+      <div class="col-md-6">
+        <p style="margin-top: 10px;"><strong>Cuidado especial:</strong> <%= @shipment_publication.special_care? ? 'Sí' : 'No' %><br/>
+          <strong>Envoltura con mantas:</strong> <%= @shipment_publication.blanket_wrap? ? 'Sí' : 'No' %></p>
+      </div>
+    </div>
+    <% if shipment_publication.items and !shipment_publication.items.blank? %>
+        <% shipment_publication.items.each_with_index do |item, index| %>
+            <% if index == 0 %>
+                <hr class="md-hr">
+            <% end %>
+
+            <div class="row">
+              <div class="col-md-6">
+                <h4>Artículo <%= (index + 1).to_s %>: <%= item.name %></h4>
+              </div>
+              <div class="col-md-6">
+                <p style="margin-top: 10px;">
+                  <strong>Cantidad: </strong><%= item.quantity %>
+                  <br/>
+                  <strong>Dimensiones:&nbsp;</strong>
+                  <% if !item.length.blank? and !item.width.blank? and !item.height.blank? %>
+                      <%= "Largo: #{item.length} m. Ancho: #{item.width} m. Alto: #{item.height} m" %>
+                  <% else %>
+                      <%= ApplicationHelper::DIMENSIONS_DEFAULT_TEXT %>
+                  <% end %>
+                  <br/>
+                  <strong>Peso:&nbsp;</strong>
+                  <% if !item.weight.blank? %>
+                      <%= "#{item.weight} kg" %>
+                  <% else %>
+                      <%= ApplicationHelper::WEIGHT_DEFAULT_TEXT %>
+                  <% end %>
+                </p>
+              </div>
+            </div>
+
+            <% unless index == (shipment_publication.items.size - 1) %>
+                <hr class="sm-hr">
+            <% end %>
+        <% end %>
+    <% end %>
+  </div>
+
+</div>

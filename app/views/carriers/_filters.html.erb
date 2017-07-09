@@ -1,0 +1,77 @@
+<ul class="nav" xmlns="http://www.w3.org/1999/html">
+  <li>
+    <%= link_to content_tag(:i, '', class: 'fa fa-minus-square-o collapse-indicator')  + ' Categorías',
+                '#categories', data: { toggle: 'collapse' } %>
+    <div id="categories" class="collapse in collapsible-panel">
+      <ul class="custom-nav">
+        <% @parent_categories.each do |cat| %>
+            <li>
+              <div>
+                <%= check_box_tag hyphens_format(cat.name), 'false', false, class: 'parent-category-check' %>
+                <% if !cat.categories.empty? %>
+                    <%= link_to "##{hyphens_format(cat.name)}-col", data: { toggle: 'collapse' } do %>
+                        <%= "#{cat.name}" %>
+                        <%= content_tag(:i, '', class: 'fa fa-plus-square-o text-align-right collapse-indicator') %>
+                    <% end %>
+                    <div id="<%= "#{hyphens_format(cat.name)}-col" %>" class="collapse collapsible-panel">
+                      <ul class="custom-nav">
+                        <% cat.categories.each do |sub_cat| %>
+                            <li>
+                              <div>
+                                <%= check_box_tag "#{sub_cat.id}",'false', false, class: "child-category-check #{hyphens_format(cat.name)}" %>
+                                <%= link_to sub_cat.name, '#' %>
+                              </div>
+                            </li>
+                        <% end %>
+                      </ul>
+                    </div>
+                <% else %>
+                    <%= link_to "#{cat.name}", "##{hyphens_format(cat.name)}-col" %>
+                <% end %>
+              </div>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  </li>
+  <li>
+    <%= link_to content_tag(:i, '', class: 'fa fa-minus-square-o collapse-indicator')  + ' Origen',
+                '#origin', data: { toggle: 'collapse' } %>
+    <div id="origin" class="collapse in collapsible-panel">
+      <form>
+        <div class="input-group">
+          <%= text_field_tag :origin_description, nil, class: 'form-control geo-input', placeholder: 'Origen' %>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-normal btn-circle inline-btn" id="clear-origin"><i class="fa fa-times"></i></button>
+            <button type="button" class="btn btn-primary btn-circle inline-btn" id="go-origin"><i class="fa fa-chevron-right"></i></button>
+          </span>
+          <%= hidden_field_tag :origin_city_name %>
+          <%= hidden_field_tag :origin_region_name %>
+          <%= hidden_field_tag :origin_country_name %>
+          <%= hidden_field_tag :origin_lat %>
+          <%= hidden_field_tag :origin_lng %>
+        </div>
+      </form>
+    </div>
+  </li>
+  <li>
+    <%= link_to content_tag(:i, '', class: 'fa fa-minus-square-o collapse-indicator')  + ' Destino',
+                '#destination', data: { toggle: 'collapse' } %>
+    <div id="destination" class="collapse in collapsible-panel">
+      <form>
+        <div class="input-group">
+          <%= text_field_tag :destination_description, nil, class: 'form-control geo-input', placeholder: 'Destino' %>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-normal btn-circle inline-btn" id="clear-dest"><i class="fa fa-times"></i></button>
+            <button type="button" class="btn btn-primary btn-circle inline-btn" id="go-dest"><i class="fa fa-chevron-right"></i></button>
+          </span>
+          <%= hidden_field_tag :destination_city_name %>
+          <%= hidden_field_tag :destination_region_name %>
+          <%= hidden_field_tag :destination_country_name %>
+          <%= hidden_field_tag :destination_lat %>
+          <%= hidden_field_tag :destination_lng %>
+        </div>
+      </form>
+    </div>
+  </li>
+</ul>

@@ -1,0 +1,23 @@
+one:
+  description: Bid one
+  price_cents: 10000
+  carrier: one
+  shipment_publication: one
+
+two:
+  description: Bid two
+  price_cents: 10000
+  carrier: two
+  shipment_publication: two
+
+three:
+  description: Bid three
+  price_cents: 10000
+  carrier: two
+  shipment_publication: delivered
+
+bid_not_accepted:
+  description: Bid not acepted
+  price_cents: 10000
+  carrier: two
+  shipment_publication: shipment_publication_without_accepted_bid

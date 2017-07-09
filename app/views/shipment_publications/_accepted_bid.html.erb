@@ -1,0 +1,40 @@
+<div class="bid-item info">
+  <div class="row">
+    <div class="col-md-8">
+      <h4 class="text-primary">Has aceptado esta oferta:</h4>
+    </div>
+    <div class="col-md-4" style="text-align: right">
+      <span class="chat-button">
+        <% if bid.conversation %>
+            <%= render partial: 'conversations/existing_conversation_button', locals: { conversation: bid.conversation } %>
+        <% else %>
+            <%= link_to new_from_bid_conversation_path(bid_id: bid.id), method: :post, class: 'btn btn-info btn-chat-custom',
+                        style: 'margin-right: 0.5em;', remote: true do %>
+                <i class="fa fa-comment"></i>
+            <% end %>
+        <% end %>
+      </span>
+    </div>
+  </div>
+  <p>Precio: <strong>$<%= bid.price %></strong></p>
+  <p><%= bid.description.truncate(50) %></p>
+  <% if bid.shipment_publication.was_delivered? %>
+      <h4><small>
+        <i class="fa fa-check"></i>&nbsp;Entregado
+      </small></h4>
+  <% else %>
+      <h4><small>
+        <i class="fa fa-clock-o"></i>&nbsp;Pendiente de entrega
+      </small></h4>
+  <% end %>
+  <% if bid.carrier %>
+      <h4 style="margin: 10px 0 2px 0;"><small>
+        <i class="fa fa-truck"></i>&nbsp;<%= link_to bid.carrier.business_name,
+                                                     carrier_view_shipment_publication_path(
+                                                         id: bid.shipment_publication.id,
+                                                         carrier_id: bid.carrier.id),
+                                                     remote: true, class: 'carrier_link' %>
+        <%= ", #{bid.carrier.email}" %>
+      </small></h4>
+  <% end %>
+</div>

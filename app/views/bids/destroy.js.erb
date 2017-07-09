@@ -1,0 +1,18 @@
+$('.loading').css("display", "none");
+
+$('#upper_link_to_bid').html('<%= j link_to 'OFERTAR', new_bid_path(shipment_publication_id: @bid.shipment_publication.id),
+                                remote: true, class: 'btn btn-success btn-title-inline' %>');
+$('#lower_link_to_bid').html('<%= j link_to 'OFERTAR', new_bid_path(shipment_publication_id: @bid.shipment_publication.id),
+                                remote: true, class: 'btn btn-success' %>');
+
+$('.modal').modal('hide');
+$('#new-bid-modal').modal('hide');
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+
+$('#show_user_publication_flash_container').html('<%= j flash_messages %>');
+$('.alert').css({"marginBottom": "4px", "marginTop": "8px"});
+
+//if($('#< %= @bid.id %>').length) {
+//    window.location.reload();
+//}

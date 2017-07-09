@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one:
+  from_time: 2016-09-11 11:02:57
+  to_time: 2016-09-12 11:02:57
+  date: 2016-09-11
+  type: AfterCondition

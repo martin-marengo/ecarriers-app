@@ -1,0 +1,2 @@
+module ShipmentPublication::StepsControllerHelper
+end

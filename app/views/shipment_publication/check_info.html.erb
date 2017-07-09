@@ -1,0 +1,161 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+
+    <div class="col-md-8">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>¡Confirme el envío!</h4>
+        </div>
+
+        <div class="panel-body devise-panel">
+          <%= form_for(@shipmentPublication, url: wizard_path(:successful_publication), method: :put, html: {role: 'form'}) do |f| %>
+              <div class="form-row">
+                <label><%= "Publicación: #{@shipmentPublication.title}" %></label>
+              </div>
+
+              <div class="form-row">
+                <% @shipmentPublication.items.each_with_index do |item, index| %>
+                    <div class="view check-info-item">
+                      <strong>Artículo <%= index + 1 %>: </strong><%= item.name %><br>
+                      <% if !item.length.blank? and !item.width.blank? and !item.height.blank? %>
+                          Largo: <%= "#{item.length} m." %><br>
+                          Alto: <%= "#{item.height} m." %><br>
+                          Ancho: <%= "#{item.width} m." %><br>
+                      <% else %>
+                          Dimensiones: <%= ApplicationHelper::DIMENSIONS_DEFAULT_TEXT %>
+                      <% end %>
+                      Peso:
+                      <% if !item.weight.blank? %>
+                          <%= "#{item.weight} kg." %>
+                      <% else %>
+                          <%= ApplicationHelper::WEIGHT_DEFAULT_TEXT %>
+                      <% end %>
+                      <br/>
+                      Cantidad: <%= "#{item.quantity} artículo#{'s' unless item.quantity == 1 }" %><br>
+                    </div>
+                <% end %>
+              </div>
+
+              <hr style="margin-top: 0px;">
+
+              <div class="view form-row">
+                <address>
+                  <strong>Domicilio de Retiro</strong><br>
+                  <%= street_text @shipmentPublication.pickup_address %><br>
+                  <%= city_text @shipmentPublication.pickup_address %><br>
+                </address>
+              </div>
+
+              <div class="view form-row">
+                <strong>Condición de retiro</strong><br>
+                <%= service_condition_text @shipmentPublication.pickup_service_condition %><br>
+              </div>
+
+              <hr>
+
+              <div class="view form-row">
+                <address>
+                  <strong>Domicilio de Entrega</strong><br>
+                  <%= street_text @shipmentPublication.delivery_address %><br>
+                  <%= city_text @shipmentPublication.delivery_address %><br>
+                </address>
+              </div>
+
+              <div class="view form-row">
+                <strong>Condición de entrega</strong><br>
+                <%= service_condition_text @shipmentPublication.delivery_service_condition %><br>
+              </div>
+
+              <hr>
+
+              <div class="view form-row">
+                <strong>Otras opciones:</strong><br>
+                Los artículos <%= content_tag(:b, 'NO') unless @shipmentPublication.special_care? %>
+                necesitan cuidados especiales.<br>
+                Los artículos <%= content_tag(:b, 'NO') unless @shipmentPublication.blanket_wrap? %>
+                necesitan ser envueltos con mantas.<br>
+              </div>
+
+              <div id="previous-data" hidden="hidden">
+                <%= f.text_field :title %>
+                <%= f.text_field :special_care %>
+                <%= f.text_field :blanket_wrap %>
+
+                <% @shipmentPublication.items.each_with_index do |item, index| %>
+                    <%= fields_for "item[#{index}]", item do |i| %>
+                        <%= i.text_field :name %>
+                        <%= i.number_field :length_m %>
+                        <%= i.number_field :length_cm %>
+                        <%= i.number_field :width_m %>
+                        <%= i.number_field :width_cm %>
+                        <%= i.number_field :height_m %>
+                        <%= i.number_field :height_cm %>
+                        <%= i.number_field :weight_kg %>
+                        <%= i.number_field :quantity %>
+                    <% end %>
+                <% end %>
+
+                <%= f.fields_for :pickup_address, @shipmentPublication.pickup_address do |i| %>
+                    <%= i.text_field :location_description %>
+                    <%= i.text_field :city_name %>
+                    <%= i.text_field :region_name %>
+                    <%= i.text_field :country_name %>
+                    <%= i.text_field :street_name %>
+                    <%= i.text_field :street_number %>
+                    <%= i.text_field :floor_number %>
+                    <%= i.text_field :apartment %>
+                    <%= i.text_field :lat, value: @shipmentPublication.origin_lat %>
+                    <%= i.text_field :lng, value: @shipmentPublication.origin_lng %>
+                <% end %>
+
+                <%= f.fields_for :pickup_service_condition, @shipmentPublication.pickup_service_condition do |i| %>
+                    <%= select_tag :pickup_service_condition, options_for_select(service_conditions, default_service_condition), id: 'pickup-condition' %>
+                    <%= i.date_select :date %>
+                    <%= i.date_select :from_date %><br>
+                    <%= i.date_select :to_date %>
+                    <%= i.time_select :from_time %><br>
+                    <%= i.time_select :to_time %>
+                <% end %>
+
+                <%= f.fields_for :delivery_address, @shipmentPublication.delivery_address do |i| %>
+                    <%= i.text_field :location_description %>
+                    <%= i.text_field :city_name %>
+                    <%= i.text_field :region_name %>
+                    <%= i.text_field :country_name %>
+                    <%= i.text_field :street_name %>
+                    <%= i.text_field :street_number %>
+                    <%= i.text_field :floor_number %>
+                    <%= i.text_field :apartment %>
+                    <%= i.text_field :lat, value: @shipmentPublication.destination_lat %>
+                    <%= i.text_field :lng, value: @shipmentPublication.destination_lng %>
+                <% end %>
+
+                <%= f.fields_for :delivery_service_condition, @shipmentPublication.delivery_service_condition do |i| %>
+                    <%= select_tag :delivery_service_condition, options_for_select(service_conditions, default_service_condition), id: 'delivery-condition' %>
+                    <%= i.date_select :date %>
+                    <%= i.date_select :from_date %>
+                    <%= i.date_select :to_date %>
+                    <%= i.time_select :from_time %>
+                    <%= i.time_select :to_time %>
+                <% end %>
+
+                <%= text_field_tag :category_id, @shipmentPublication.category.id, hidden: true %>
+              </div>
+
+              <hr>
+
+              <div class="actions form-row">
+                <a href="javascript:history.back()" class="btn btn-warning">Volver atrás</a>
+                <%= f.submit 'Confirmar envío', class: 'btn btn-primary' %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>

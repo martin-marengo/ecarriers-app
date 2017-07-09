@@ -1,0 +1,37 @@
+
+$('.loading').css("display", "none");
+<% if @bid.errors.empty? %>
+
+  $('.modal').modal('hide');
+  $('#new-bid-modal').modal('hide');
+  $('body').removeClass('modal-open');
+  $('.modal-backdrop').remove();
+
+  $('#show_user_publication_flash_container').html('<%= j flash_messages %>');
+  $('.alert').css({"marginBottom": "4px", "marginTop": "8px"});
+
+  $('#<%= @bid.id %> tr').each(function() {
+      $(this).find(".td-description").html('<p><%= @bid.description %></p>');
+      $(this).find(".td-price").html('<p>$ <%= @bid.price %></p>');
+  });
+
+<% else %>
+  <% if @bid.errors[:description].any? %>
+    $('#description-form-control').addClass('has-error');
+    $('#description-help-block').html('<%= j @bid.errors[:description].join(', ') %>');
+  <% end %>
+  <% if @bid.errors[:price].any? %>
+    $('#price-form-control').addClass('has-error');
+    $('#price-help-block').html('<%= j @bid.errors[:price].join(', ') %>');
+  <% end %>
+
+  // Inputs del modal de creacion de una oferta
+  $('#description-input').on('input', function () {
+      $('#description-form-control').removeClass('has-error');
+      $('#description-help-block').html('');
+  });
+  $("#price-input").on('input', function () {
+      $('#price-form-control').removeClass('has-error');
+      $('#price-help-block').html('');
+  });
+<% end %>

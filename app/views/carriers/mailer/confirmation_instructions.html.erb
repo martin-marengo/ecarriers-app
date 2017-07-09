@@ -1,0 +1,5 @@
+<p>¡Bienvenido a eCarriers!</p>
+
+<p>Confirma que tu cuenta es <%= @email %> a través del link que dejamos a continuación:</p>
+
+<p><%= link_to 'Confirmar mi cuenta', carrier_confirm_url(confirmation_token: @resource.confirmation_token) %></p>

@@ -1,0 +1,21 @@
+@import "bootstrap";
+
+.mark-trip-as-driving-button {
+  @extend .btn, .btn-primary;
+  margin-left: 0.5em;
+}
+
+.mark-trip-as-driving-success-button {
+  @extend .btn, .btn-success;
+  margin-left: 0.5em;
+}
+
+.mark-trip-as-finished-button {
+  @extend .btn, .btn-primary;
+  margin-left: 0.5em;
+}
+
+.mark-trip-as-finished-success-button {
+  @extend .btn, .btn-success;
+  margin-left: 0.5em;
+}

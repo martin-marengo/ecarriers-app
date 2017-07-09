@@ -1,0 +1,19 @@
+<span id="shipment-publication-actions">
+  <% unless shipment_publication.accepted_bid.try(:id) %>
+      <%= link_to content_tag(:i, '', class: 'fa fa-trash-o'), shipment_publication, method: :delete,
+                  data: { confirm: '¿Deseas eliminar permanentemente esta publicación?'},
+                  class: 'btn-title-icon-inline', title: 'Eliminar publicación' %>
+
+      <% if shipment_publication.canceled? %>
+          <%= link_to content_tag(:i, '', class: 'fa fa-eye'),
+                      set_visible_shipment_publication_path(shipment_publication), method: :post,
+                      class: 'btn-title-icon-inline',
+                      title: 'Hacer publicación visible a los transportistas' %>
+      <% else %>
+          <%= link_to content_tag(:i, '', class: 'fa fa-eye-slash'),
+                      set_not_visible_shipment_publication_path(shipment_publication), method: :post,
+                      class: 'btn-title-icon-inline',
+                      title: 'Ocultar publicación (solo tú podrás verla)' %>
+      <% end %>
+  <% end %>
+</span>

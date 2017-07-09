@@ -1,0 +1,29 @@
+all_requested:
+  name: All requested category
+  code_name: all_requested
+  description: Category that requests measures
+  are_measures_required: true
+  is_weight_required: true
+
+nothing_requested:
+  name: Nothing requested category
+  code_name: nothing_requested
+  description: Category that does not request measures
+  are_measures_required: false
+  is_weight_required: false
+
+child_category_a:
+  name: Child category A
+  code_name: child_category_a
+  description: a_child_category
+  are_measures_required: false
+  is_weight_required: false
+  parent_category: nothing_requested
+
+furniture:
+  name: Furniture
+  code_name: furniture
+  description: Furnitures
+  are_measures_required: true
+  is_weight_required: true
+  parent_category: all_requested

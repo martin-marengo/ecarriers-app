@@ -1,0 +1,26 @@
+<div class="current-budget">
+  <% if shipment_request.budget %>
+      <%= content_tag :h4, "Presupuesto: $#{shipment_request.budget.price.amount}" +
+          "#{shipment_request.budget.accepted? ? ' (aceptado)' : ' (pendiente)'}" %>
+  <% end %>
+</div>
+
+<div class="link-to-budget">
+  <% if shipment_request.budget %>
+      <% if shipment_request.budget.accepted? %>
+          <h4 class="text-success"><strong>¡Ahora deberás realizar este envío!</strong></h4>
+
+          <%= link_to 'Cancelar', shipment_request_budget_path(shipment_request, shipment_request.budget),
+                      method: :delete, data: {confirm: '¿Deseas eliminar el presupuesto? Al hacerlo, ya no deberás realizar este envío.',
+                                              disable_with: 'Procesando...'},
+                      remote: true, class: 'btn btn-danger' %>
+      <% else %>
+          <%= link_to 'Modificar presupuesto',
+                      edit_shipment_request_budget_path(shipment_request, shipment_request.budget),
+                      class: 'btn btn-primary', remote: true %>
+      <% end %>
+  <% else %>
+      <%= link_to 'Presupuestar', new_shipment_request_budget_path(shipment_request),
+                  class: 'btn btn-primary', remote: true %>
+  <% end %>
+</div>

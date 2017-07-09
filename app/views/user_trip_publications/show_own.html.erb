@@ -1,0 +1,162 @@
+<div class="container-fluid">
+
+  <!-- HEADER -->
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="page-header custom-page-header">
+        <div class="row">
+
+          <%= flash_messages %>
+
+          <!-- TITLE + INFO -->
+          <div class="col-md-9">
+            <h3>
+              <span class="user-trip-publication-first-header">
+                <% if @user_trip_publication.canceled? %>
+                  <span class="fa fa-lock"></span>
+                <% end %>
+                <%= @user_trip_publication.title %>
+                <span>
+                  <%= link_to content_tag(:i, '', class: 'fa fa-pencil'), edit_user_trip_publication_path,
+                              class: 'btn-title-icon-inline', title: 'Editar publicación' %>
+
+                  <%= link_to content_tag(:i, '', class: 'fa fa-trash-o'), @user_trip_publication, method: :delete,
+                              data: { confirm: '¿Deseas eliminar permanentemente esta publicación?'},
+                              class: 'btn-title-icon-inline', title: 'Eliminar publicación' %>
+
+                  <% if @user_trip_publication.canceled? %>
+                    <%= link_to content_tag(:i, '', class: 'fa fa-eye'),
+                                set_visible_user_trip_publication_path(@user_trip_publication), method: :post,
+                                class: 'btn-title-icon-inline',
+                                title: 'Hacer publicación visible a los demás usuarios' %>
+                  <% else %>
+                    <%= link_to content_tag(:i, '', class: 'fa fa-eye-slash'),
+                                set_not_visible_user_trip_publication_path(@user_trip_publication), method: :post,
+                                class: 'btn-title-icon-inline',
+                                title: 'Ocultar publicación (solo tú podrás verla)' %>
+                  <% end %>
+                </span>
+              </span>
+              <small>
+                &nbsp;<i class="fa fa-clock-o"></i>&nbsp;<%= @user_trip_publication.publication_date %>
+                &nbsp;&nbsp;<i class="fa fa-user"></i>&nbsp;<%= "#{@user_trip_publication.user_name}, #{@user_trip_publication.user_email}" %>
+              </small>
+            </h3>
+          </div>
+          <!-- END TITLE + INFO -->
+
+          <!-- BACK TO PUBLICATIONS -->
+          <div class="col-md-3 bottom-align">
+
+            <h3 class="text-align-right">
+              <small>
+                <%= link_to content_tag(:i, '', class: 'fa fa-arrow-left') + ' Mis publicaciones', my_publications_user_trip_publications_path %>
+              </small>
+            </h3>
+          </div>
+
+          <!-- END BACK TO PUBLICATIONS -->
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+  <!-- END HEADER -->
+
+  <!-- BODY -->
+  <div class="row">
+
+    <div class="col-md-1">
+    </div>
+
+    <!-- SHIPMENT_REQUESTS -->
+    <div class="col-md-3 shipment-requests-container">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>Pedidos de Envío</h4>
+        </div>
+        <div class="panel-body">
+          <% if @shipment_requests.blank? %>
+              <div class="no-results" id="no-results-shipment_requests">
+                <h2>
+                  <small>Todavía no tienes pedidos de envío para este viaje</small>
+                </h2>
+              </div>
+          <% else %>
+              <div id="shipment-requests-list">
+                <%= render partial: 'shipment_requests/shipment_requests', collection: @shipment_requests,
+                           as: :shipment_request %>
+              </div>
+
+              <div id="pagination-container" style="text-align: center">
+                <%= will_paginate @shipment_requests,
+                                  previous_label: 'Anterior', next_label: 'Siguiente', inner_window: 1 %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+    <!-- END SHIPMENT_REQUESTS -->
+
+    <!-- PUBLICATION DETAIL -->
+    <div class="col-md-7">
+
+      <!-- MAIN DETAIL -->
+      <div class="row">
+
+        <!-- MAP -->
+        <div class="col-md-7">
+          <div class="map-container">
+            <%= hidden_field_tag :origin_lat, @user_trip_publication.origin_lat %>
+            <%= hidden_field_tag :origin_lng, @user_trip_publication.origin_lng %>
+            <%= hidden_field_tag :destination_lat, @user_trip_publication.destination_lat %>
+            <%= hidden_field_tag :destination_lng, @user_trip_publication.destination_lng %>
+            <%= hidden_field_tag :origin_text, @user_trip_publication.origin_location_description %>
+            <%= hidden_field_tag :destination_text, @user_trip_publication.destination_location_description %>
+            <div id="shipment_road_map" style="width: 600px; height: 450px;"></div>
+          </div>
+        </div>
+        <!-- END MAP -->
+
+        <!-- ORIGIN / DESTINATION WELLS -->
+        <div class="col-md-5">
+
+          <%# ORIGIN WELL %>
+          <div class="well well-sm">
+            <h4>Orígen: <%= @user_trip_publication.departure_date_time %></h4>
+            <p><strong><%= @user_trip_publication.origin_location_description %></strong></p>
+          </div>
+
+          <%# DESTINATION WELL %>
+          <div class="well well-sm">
+            <h4>Destino: <%= @user_trip_publication.arrival_date_time %></h4>
+            <p><strong><%= @user_trip_publication.destination_location_description %></strong></p>
+          </div>
+
+        </div>
+        <!-- END ORIGIN / DESTINATION WELLS -->
+
+      </div>
+      <!-- END MAIN DETAIL -->
+
+      <!-- VEHICLE_DESCRIPTION -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="jumbotron">
+            <h3><strong>Vehículo - Tipo de carga</strong></h3>
+            <p><%= @user_trip_publication.vehicle_description %></p>
+          </div>
+        </div>
+      </div>
+      <!-- END VEHICLE_DESCRIPTION -->
+    </div>
+    <!-- END PUBLICATION DETAIL -->
+
+    <div class="col-md-1"></div>
+  </div>
+  <!-- END BODY -->
+
+</div>

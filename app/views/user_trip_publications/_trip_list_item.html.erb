@@ -1,0 +1,48 @@
+<div class="publication-item <%= cycle('even', 'odd') %>">
+  <table class="table table-borderless">
+    <tbody>
+    <tr>
+
+      <%# Salida %>
+      <td width="15%">
+        <h4><%= user_trip_publication.departure_date_short %></h4>
+      </td>
+
+      <%# Origen %>
+      <td width="25%">
+        <p><strong><%= user_trip_publication.origin_location_description %></strong></p>
+        <p>Salida: <em><%= user_trip_publication.departure_date_time %></em></p>
+      </td>
+
+      <%# Destino %>
+      <td width="25%">
+        <p><strong><%= user_trip_publication.destination_location_description %></strong></p>
+        <p>Llegada: <em><%= user_trip_publication.arrival_date_time %></em></p>
+      </td>
+
+      <%# Vehículo / Tipo de Carga %>
+      <td width="25%" style="word-wrap: break-word">
+        <p><%= user_trip_publication.vehicle_description %></p>
+      </td>
+
+      <%# Estado / Acciones %>
+      <td width="10%">
+        <% if @current_user.same_as(user_trip_publication.user) %>
+            <%# Si ya pasó o no el viaje. Cuántos pedidos de envío tiene, cuántos aceptados. Si esta visible o no (canceled) %>
+            <p><strong><%= user_trip_publication.canceled? ? 'Oculta' : 'Visible' %></strong></p>
+            <p><strong>
+              <%= link_to 'Ver', show_own_user_trip_publication_path(user_trip_publication) %>
+              &nbsp
+              <%= link_to 'Editar', edit_user_trip_publication_path(user_trip_publication) %>
+            </strong></p>
+        <% else %>
+            <p><strong>
+              <%= link_to 'Ver', user_trip_publication_path(user_trip_publication) %>
+            </strong></p>
+        <% end %>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>

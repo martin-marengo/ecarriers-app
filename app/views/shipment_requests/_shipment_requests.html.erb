@@ -1,0 +1,28 @@
+<div class="shipment-request-item info" id="<%= shipment_request.id %>">
+  <div class="row" style="margin-bottom: 0.5em;">
+    <div class="col-md-9">
+      <h4 class="text-primary" style="margin: 5px 0 0 0;">
+        <i class="fa fa-user"></i> <%= shipment_request.user.full_name %>
+        <small><%= shipment_request.user.email %></small></h4>
+    </div>
+    <div class="col-md-3" style="text-align: right">
+      <span class="chat-button">
+        <% if shipment_request.conversation %>
+            <%= render partial: 'conversations/existing_conversation_button', locals: { conversation: shipment_request.conversation } %>
+        <% else %>
+            <%= link_to new_from_shipment_request_conversation_path(shipment_request_id: shipment_request.id),
+                        method: :post, class: 'btn btn-info btn-chat-custom',
+                        style: 'margin-right: 0.5em;', remote: true do %>
+                <i class="fa fa-comment"></i>
+            <% end %>
+        <% end %>
+      </span>
+    </div>
+  </div>
+
+  <p><strong><%= shipment_request.items_description %></strong></p>
+
+  <div class="budget-info">
+    <%= render partial: 'shipment_requests/budget_info', locals: { shipment_request: shipment_request, budget: shipment_request.budget } %>
+  </div>
+</div>

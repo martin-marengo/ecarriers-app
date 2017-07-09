@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: e-carriers
+  password: ruby
+
+development:
+  <<: *default
+  database: ecarriers_development
+
+test:
+  database: db/test.sqlite3
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+production:
+  <<: *default
+  database: ecarriers_production
+  username: <%= ENV['ECARRIERS_DATABASE_USERNAME'] %>
+  password: <%= ENV['ECARRIERS_DATABASE_PASSWORD'] %>

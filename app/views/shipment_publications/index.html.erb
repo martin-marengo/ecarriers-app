@@ -1,0 +1,59 @@
+<div class="row">
+
+  <div class="col-md-3"></div>
+
+  <div class="col-md-6">
+    <div  class="page-header custom-page-header">
+      <%= flash_messages %>
+      <h2>Mis publicaciones de envíos</h2>
+    </div>
+  </div>
+
+  <div class="col-md-3"></div>
+
+</div>
+<div class="row">
+
+  <div class="col-md-3"></div>
+
+  <div class="col-md-6">
+
+    <table class="table table-striped only-header-table">
+      <thead>
+      <tr>
+        <th width="30%">Envío</th>
+        <th width="17.5%">Orígen</th>
+        <th width="17.5%">Destino</th>
+        <th width="25%">Condiciones</th>
+        <th width="10%">Distancia</th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+    <div id="no-results" style="<%= (@shipment_publications.blank?) ? 'display: block' : 'display: none' %>">
+      <h2>
+        <small>Aún no tienes publicaciones</small>
+      </h2>
+    </div>
+
+    <div id="shipment_publications">
+      <%= render partial: 'shipment_publication_list_item',
+                 collection: @shipment_publications, as: :shipment_publication %>
+    </div>
+
+    <% if @shipment_publications.next_page %>
+        <div id="infinite-scrolling">
+          <%# Se le pasan los parametros de filtrado actuales para paginar con esos resultados y no con todos %>
+          <%= will_paginate @shipment_publications, params: { categories: params[:categories], pagination: true } %>
+        </div>
+    <% else %>
+        <%= render partial: 'layouts/footer_dashboard' %>
+    <% end %>
+
+  </div>
+
+  <div class="col-md-3"></div>
+
+</div>

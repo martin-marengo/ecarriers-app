@@ -1,0 +1,78 @@
+<div id="item-<%= index %>">
+  <%= show_errors_of item if show_errors?%>
+  <%= fields_for "item[#{index}]", item do |i| %>
+      <%= i.label "Información del artículo #{index + 1}" %><br />
+
+      <div class="form-group form-row">
+        <%= i.label 'Descripción:', class: 'description-label' %>
+        <%= i.text_field :name, autocomplete: 'off', class: 'form-control', 
+                         placeholder: 'Describe brevemente este artículo', required: true %>
+      </div>
+
+      <div class="form-group form-row">
+        <div class="row">
+          <div class="col-xs-2">
+            <%= i.label 'Largo:', class: 'measure-label', required: true %>
+          </div>
+          <div class="col-xs-2">
+            <%= i.number_field :length_m, min: 0,class: 'measure-input form-control', 
+                               placeholder: 'm.', required: true %>
+          </div>
+          <div class="col-xs-2">
+            <%= i.number_field :length_cm, min: 0, class: 'measure-input form-control', 
+                               placeholder: 'cm.', required: true %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group form-row">
+        <div class="row">
+          <div class="col-xs-2">
+            <%= i.label 'Ancho:', class: 'measure-label' %>
+          </div>
+          <div class="col-xs-2">
+            <%= i.number_field :width_m, min: 0, class: 'measure-input form-control', 
+                               placeholder: 'm.', required: true %>
+          </div>
+          <div class="col-xs-2">
+            <%= i.number_field :width_cm, min: 0, class: 'measure-input form-control', 
+                               placeholder: 'cm.', required: true %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group form-row">
+        <div class="row">
+          <div class="col-xs-2">
+            <%= i.label 'Alto:', class: 'measure-label' %>
+          </div>
+          <div class="col-xs-2">
+            <%= i.number_field :height_m, min: 0, class: 'measure-input form-control', 
+                               placeholder: 'm.', required: true %>
+          </div>
+          <div class="col-xs-2">
+            <%= i.number_field :height_cm, min: 0, class: 'measure-input form-control', 
+                               placeholder: 'cm.', required: true %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-xs-6">
+          <%= i.label 'Peso:', class: 'measure-label' %>
+          <%= i.number_field :weight_kg, min: 0, class: 'measure-input form-control', 
+                             placeholder: 'kg.', required: true %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-xs-6">
+          <%= i.label 'Cantidad:', class: 'measure-label' %>
+          <%= i.number_field :quantity, min: 1, value: 1, class: 'measure-input form-control', required: true %>
+        </div>
+      </div>
+
+      <br>
+      <hr>
+  <% end %>
+</div>

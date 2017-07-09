@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div  class="page-header custom-page-header">
+        <%= flash_messages %>
+        <h2>Encontrar viajes de usuarios</h2>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+  <div class="row">
+
+    <div class="col-md-1"></div>
+
+    <div class="col-md-3">
+      <h4>Filtra los resultados</h4>
+      <div>
+        <%= render partial: 'trip_filters' %>
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary reset-filters" id="btn-reset-filters">Reestablecer filtros</button>
+      </div>
+    </div>
+
+    <div class="col-md-7">
+
+      <table class="table table-striped only-header-table">
+        <thead>
+        <tr>
+          <th width="15%">Salida</th>
+          <th width="25%">Orígen</th>
+          <th width="25%">Destino</th>
+          <th width="25%">Vehículo / Tipo de Carga</th>
+          <th width="10%">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+      <div id="no-results" style="<%= (@user_trip_publications.blank?) ? 'display: block' : 'display: none' %>">
+        <h2>
+          <small>No se encontraron resultados</small>
+        </h2>
+      </div>
+
+      <div id="user_trip_publications">
+        <%# Link a la ruta que resonde la llamada AJAX para filtrar, se obtiene el link dinamicamente en application.js  %>
+        <%= link_to '', user_trip_publications_path, id: 'update_trips', style: 'display: none' %>
+        <%= render partial: 'trip_list_item',
+                   collection: @user_trip_publications, as: :user_trip_publication %>
+      </div>
+
+      <% if @user_trip_publications.next_page %>
+          <div id="infinite-scrolling">
+            <%# Se le pasan los parametros de filtrado actuales para paginar con esos resultados y no con todos %>
+            <%= will_paginate @user_trip_publications, params: { origin: params[:origin],
+                                                                 destination: params[:destination],
+                                                                 departure_date: params[:departure_date],
+                                                                 pagination: true } %>
+          </div>
+      <% else %>
+          <%= render partial: 'layouts/footer_dashboard' %>
+      <% end %>
+
+    </div>
+
+    <div class="col-md-1"></div>
+
+  </div>
+</div>

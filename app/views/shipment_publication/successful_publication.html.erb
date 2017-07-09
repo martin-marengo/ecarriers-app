@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+
+    <div class="col-md-8">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          ¡Envío publicado exitosamente!
+        </div>
+        <div class="panel-body">
+          <p>Se ha publicado su envío en eCarriers. ¡En momentos recibirá ofertas de muchos transportistas!</p>
+          <p>Además, enviamos un mail a <%= userMail %> con más información.</p>
+          <p>¡Gracias por confiar en eCarriers!</p>
+        </div>
+      </div>
+
+      <%= link_to 'Ir a la publicación', publication_path(shipment_publication), class: 'btn btn-primary' %>
+    </div>
+
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>

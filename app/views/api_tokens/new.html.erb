@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-2"></div>
+
+    <div class="col-md-8">
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>Genera Token</h4>
+        </div>
+
+        <div class="panel-body">
+          <p>
+            Para poder usar la API, necesitas generar un token que usarás para identificarte en las consultas.
+          </p>
+          <p>
+            Haz click en el botón de abajo para generarla.
+          </p>
+          
+          <div id="replaceable">
+            <%= form_for(:api_token, url: { action: :create }, remote:true) do |f| %>
+                <div class="actions">
+                  <%= f.submit 'Generar token', class: 'btn btn-primary' %>
+                </div>
+            <% end %>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-2"></div>
+
+  </div>
+</div>

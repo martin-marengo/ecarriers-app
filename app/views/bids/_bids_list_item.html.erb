@@ -1,0 +1,35 @@
+<div class="bid-item <%= cycle('even', 'odd') %>">
+  <table class="table table-borderless" id="<%= bid.id %>" style="table-layout: fixed; width: 100%">
+    <tbody>
+    <tr>
+      <%# Publicación %>
+      <td width="35%">
+        <p><strong><%= link_to bid.shipment_publication.title_text, carrier_path(id: bid.shipment_publication.id) %></strong></p>
+        <div>
+          <%= image_tag('shipment_publication/' + bid.shipment_publication.category_codename, class: 'media_object img-thumbnail',
+                        size: ApplicationHelper::CATEGORY_ITEM_IMG_SIZE) %>
+          <% if bid.shipment_publication.category_name %>
+              <span class="img-side-description"><%="#{bid.shipment_publication.category_name }"%></span>
+          <% end %>
+        </div>
+      </td>
+
+      <%# Descripción %>
+      <td width="50%" style="word-wrap: break-word" class="td-description">
+        <p><%= bid.description %></p>
+      </td>
+
+      <%# Precio %>
+      <td width="15%" align="center" class="td-price">
+        <p>$ <%= bid.price %></p>
+      </td>
+
+      <%# Opciones %>
+      <!-- <td width="15%" align="center">
+        <p>< %= link_to 'Editar', edit_bid_path(bid), remote: true %></p>
+      </td> -->
+
+    </tr>
+    </tbody>
+  </table>
+</div>

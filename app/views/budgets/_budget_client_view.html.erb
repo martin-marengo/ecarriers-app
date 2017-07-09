@@ -1,0 +1,28 @@
+<% if shipment_request.id %>
+    <h4 style="margin-bottom: 1em;">
+      Presupuesto:&nbsp
+      <% if shipment_request.budget %>
+          <%= content_tag(:strong, "$#{shipment_request.budget.price}") %>
+      <% else %>
+          <%= content_tag(:small, "#{shipment_request.user_trip_publication.user.full_name} aún no ha presupuestado") %>
+      <% end %>
+    </h4>
+
+    <% if shipment_request.try(:budget).try(:id) %>
+        <% if shipment_request.budget.accepted? %>
+            <p>
+              <%= link_to 'PRESUPUESTO ACEPTADO', '#', class: 'btn btn-success disabled' %>
+            <h3>¡Has aceptado el presupuesto!</h3>
+            <h4>Ahora, <%= shipment_request.user_trip_publication.user.full_name %> deberá realizar el envío acordado.</h4>
+            </p>
+        <% else %>
+            <p>
+              <%= link_to 'Aceptar presupuesto',
+                          accept_shipment_request_budget_path(shipment_request, shipment_request.budget), method: :post,
+                          remote: true, data: {confirm: '¿Estas seguro de confirmar el presupuesto?' },
+                          class: 'btn btn-success', title: 'Esto confirmará la realización del envío' %>
+            </p>
+        <% end %>
+    <% end %>
+
+<% end %>

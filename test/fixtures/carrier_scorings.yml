@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shipment_publication_id: 
+  service_quality: 1
+  delivery_time: 1
+  feedback: MyText
+  recommended: false
+
+two:
+  shipment_publication_id: 
+  service_quality: 1
+  delivery_time: 1
+  feedback: MyText
+  recommended: false

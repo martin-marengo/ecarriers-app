@@ -1,0 +1,238 @@
+.text-align-right {
+    float:right;
+}
+
+ul.custom-nav {
+    list-style-type: none;
+}
+
+/* Absolute Center Spinner */
+.loading {
+    display: none;
+    position: fixed;
+    z-index: 1700;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+/* Transparent Overlay */
+.loading:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.7);
+}
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+    /* hide "loading..." text */
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+.loader {
+    border: 6px solid rgba(0,0,0,0.3);
+    border-top: 6px solid #118EE1;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/* END Absolute Center Spinner */
+
+.reset-filters {
+    margin-top: 1.3em;
+    float: right;
+    margin-bottom: 1em;
+}
+
+.filters {
+    margin-right: 1em;
+}
+
+.inline-btn {
+    margin-right: 0.4em;
+    margin-left: 0.4em;
+}
+
+#no-results {
+    margin-top: 2em;
+    text-align: center;
+}
+
+/* Gmaps responsive */
+.map-container {
+    position: relative;
+    /* 75% corresponde al 4:3 aspect ratio del mapa */
+    padding-bottom: 75%;
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 1em;
+}
+#shipment_road_map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+/* END Gmaps responsive */
+
+.borderless td, .borderless th {
+    border: none;
+    border-top: none !important;
+}
+
+.cw-table-list{
+    margin:0 !important;
+    table-layout:fixed;
+    word-wrap: break-word;
+}
+
+.custom-page-header {
+    margin-top: 0.5em !important;
+    padding-bottom: 0 !important;
+}
+
+.md-hr {
+    border: none;
+    height: 2px;
+    background-color: #ccc;
+    margin-top: 10px;
+}
+
+.sm-hr {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin-top: 10px;
+}
+
+/* Lista de publicaciones de usuario (mostradas a users y carriers) */
+
+/* Los important se ponen porque de otra manera no funciona cuando se usa el manifest application_custom.css.sass */
+
+.table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
+    border: none !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.publication-item {
+    border-bottom: solid 1px #DDDDDD !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.only-header-table {
+    margin-bottom: 0.3em !important;
+}
+
+.even {
+}
+
+.odd {
+    background-color: #F1F1F2
+}
+
+.img-side-description {
+    vertical-align: top;
+    margin-left: 15px;
+}
+
+/* Fin lista publicaciones */
+
+.btn-title-inline {
+    margin-bottom: 0.5em;
+    margin-left: 0.5em;
+}
+
+.btn-title-icon-inline {
+    margin-bottom: 0.5em;
+    margin-left: 1em;
+}
+
+.pending-bid {
+    color: #5cb85c;
+}
+a.pending-bid:hover, a.pending-bid:active, a.pending-bid:focus {
+    color: #1BA51B;
+}
+
+.btn-chat-custom {
+    display: inline-block !important;
+    margin-bottom: 0 !important;
+    font-weight: normal !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    cursor: pointer !important;
+    background-image: none !important;
+    border: 1px solid transparent !important;
+    white-space: nowrap !important;
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+    line-height: 1.428571429 !important;
+    border-radius: 4px !important;
+    user-select: none !important;
+}
+
+.inline-back-link {
+    margin-right: 1em;
+}
+
+.scoring-detail {
+    margin-left: 0.5em;
+}
+
+.btn-circle {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 6px 0 !important;
+    border-radius: 15px !important;
+    text-align: center !important;
+    font-size: 12px !important;
+    line-height: 1.428571429 !important;
+}
+
+.btn-circle.btn-lg {
+    width: 50px !important;
+    height: 50px !important;
+    padding: 10px 16px !important;
+    border-radius: 25px !important;
+    font-size: 18px !important;
+    line-height: 1.33 !important;
+}
+
+.btn-circle.btn-xl {
+    width: 70px !important;
+    height: 70px !important;
+    padding: 10px 16px !important;
+    border-radius: 35px !important;
+    font-size: 24px !important;
+    line-height: 1.33 !important;
+}
+
+.no-results{
+    margin-top: 1.2em;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.shipment-publication-item-state {
+    margin-top: 1em;
+}

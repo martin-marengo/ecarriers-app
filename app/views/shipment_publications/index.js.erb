@@ -1,0 +1,22 @@
+<% if !@shipment_publications or @shipment_publications.blank? %>
+  $('#no-results').css("display", "block");
+<% else %>
+  $('#no-results').css("display", "none");
+<% end %>
+
+<% if params[:pagination] %>
+  var delimiter =
+      $('<div class="page-delimiter" data-page="<%= params[:page] %>"></div>');
+  $('#shipment_publications').append(delimiter);
+  $('#shipment_publications').append('<%= j render partial: 'shipment_publication_list_item',
+                         collection: @shipment_publications, as: :shipment_publication %>');
+
+  <% if @shipment_publications.next_page %>
+    $('.pagination').replaceWith('<%= j will_paginate @shipment_publications, params: { categories: params[:categories], pagination: true } %>');
+  <% else %>
+    $('#infinite-scrolling .pagination').remove();
+    $('#shipment_publications').append('<%= j render partial: 'layouts/footer_dashboard' %>');
+  <% end %>
+<% end %>
+
+

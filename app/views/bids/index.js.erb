@@ -1,0 +1,18 @@
+<% if !@bids or @bids.blank? %>
+$('#no-results').css("display", "block");
+<% else %>
+$('#no-results').css("display", "none");
+<% end %>
+
+var delimiter =
+    $('<div class="page-delimiter" data-page="<%= params[:page] %>"></div>');
+$('#bids').append(delimiter);
+$('#bids').append('<%= j render partial: 'bids_list_item',
+                         collection: @bids, as: :bid %>');
+
+<% if @bids.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @bids %>');
+  <% else %>
+  $('#infinite-scrolling .pagination').remove();
+  $('#bids').append('<%= j render partial: 'layouts/footer_dashboard' %>');
+<% end %>

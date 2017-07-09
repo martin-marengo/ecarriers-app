@@ -1,0 +1,40 @@
+<div class="container">
+
+  <div class="row">
+    <%= link_to content_tag(:i, '', class: 'fa fa-arrow-circle-left') + ' Todas las categorías', :back %>
+  </div>
+
+  <div class="row">
+    <h2>Seleccione la sub-categoría</h2>
+    <hr>
+  </div>
+
+
+  <%
+    iteration_number = -1
+
+    loop do
+      iteration_number += 1
+      categories_to_show = categories_to_show_in_row(children_categories, iteration_number)
+
+      if categories_to_show.nil?
+        break
+      end
+  %>
+  <div class="row">
+  <% categories_to_show.each do |category| %>
+    <%= link_to next_wizard_path(category_id: category.id) do %>
+      <div class="col-md-2">
+        <div class="thumbnail" style="height: 11em">
+          <%= image_tag('shipment_publication/' + category.code_name, class: 'category-icon img-responsive img-centered img-feature') %>
+          <div class="caption" contenteditable="true">
+            <h4 style="text-align: center"><%= category.name %></h4>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% end %>
+  </div>
+  <% end %>
+
+</div>

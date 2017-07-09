@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+
+      <%= flash_messages %>
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>Reenviar instrucciones de confirmación</h4>
+        </div>
+        <div class="panel-body devise-panel">
+          <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+              <%#= devise_error_messages! %>
+              <%= render 'shared/error_messages', model: resource %>
+
+              <div class="form-group">
+                <%= f.label 'Email' %><br />
+                <%= f.email_field :email, autofocus: true,
+                                  value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+                                  class: 'form-control', placeholder: 'Email' %>
+              </div>
+
+              <div class="actions">
+                <%= f.submit 'Reenviar instrucciones de confirmación', class: 'btn btn-primary' %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+      <%= render 'users/shared/links' %>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>

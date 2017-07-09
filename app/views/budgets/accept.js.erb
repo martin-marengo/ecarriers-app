@@ -1,0 +1,3 @@
+$('.shipment-request-actions').html('<%= j link_to 'Modificar pedido', '#', class: 'btn btn-primary disabled' %>');
+$('.shipment-request-actions').append('<%= j link_to 'Eliminar', '#', class: 'btn btn-danger disabled', style: 'margin-left: 0.5em;' %>');
+$('.budget-view').html('<%= j render partial: 'budgets/budget_client_view', locals: { shipment_request: @shipment_request } %>');

@@ -1,0 +1,198 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+
+    <div class="col-md-8">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>Introduzca los datos de entrega</h4>
+        </div>
+
+        <div class="panel-body devise-panel">
+          <%= form_for(@shipmentPublication, url: wizard_path(:check_info), method: :put, html: {role: 'form'}) do |f| %>
+              <%= show_errors_of @shipmentPublication if show_errors? %>
+
+              <div class="form-group">
+                <%= show_errors_of @shipmentPublication.pickup_address if show_errors? %>
+
+                <%= f.label 'Domicilio de retiro' %><br />
+                <%= f.fields_for :pickup_address, @shipmentPublication.pickup_address do |i| %>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <%= i.text_field :location_description, class: 'form-control geo-input', placeholder: 'Ciudad', 
+                                         id: 'origin_description', required: true %>
+                        <%= i.hidden_field :city_name, value: @shipmentPublication.pickup_address.city_name, 
+                                           id: 'origin_city_name' %>
+                        <%= i.hidden_field :region_name, value: @shipmentPublication.pickup_address.region_name, 
+                                           id: 'origin_region_name' %>
+                        <%= i.hidden_field :country_name, value: @shipmentPublication.pickup_address.country_name, 
+                                           id: 'origin_country_name' %>
+                        <%= i.hidden_field :lat, value: @shipmentPublication.pickup_address.lat, id: 'origin_lat' %>
+                        <%= i.hidden_field :lng, value: @shipmentPublication.pickup_address.lng, id: 'origin_lng' %>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <%= i.text_field :street_name, class: 'form-control', placeholder: 'Calle', required: true %>
+                      </div>
+                      <div class="col-xs-2">
+                        <%= i.text_field :street_number, class: 'form-control', placeholder: 'Número', required: true %>
+                      </div>
+                      <div class="col-xs-2">
+                        <%= i.text_field :floor_number, class: 'form-control', placeholder: 'Piso' %>
+                      </div>
+                      <div class="col-xs-2">
+                        <%= i.text_field :apartment, class: 'form-control', placeholder: 'Dpto.' %>
+                      </div>
+                    </div>
+                <% end %>
+              </div>
+
+              <div class="form-group">
+                <%= show_errors_of @shipmentPublication.pickup_service_condition if show_errors? %>
+
+                <%= f.label 'Condición de retiro:' %>
+                <%= f.fields_for :pickup_service_condition, @shipmentPublication.pickup_service_condition do |i| %>
+                  <div class="form-group form-row">
+                    <%= select_tag :pickup_service_condition, 
+                                   options_for_select(service_conditions, default_service_condition), 
+                                   id: 'pickup-condition', class: 'selectpicker' %>
+                  </div>
+                  <div id="pickup-one-date" class="form-group form-row">
+                    <%= i.label 'Fecha:' %>
+                    <%= i.text_field :date, class: 'datepicker datepicker-with-limit' %>
+                  </div>
+                  <div id="pickup-two-dates" class="form-group" style="display: none;">
+                    <div class="form-row">
+                      <%= i.label 'Fechas:' %>
+                    </div>
+                    <div class="form-row">
+                      <%= i.label 'Desde:' %>
+                      <%= i.text_field :from_date, class: 'datepicker datepicker-with-limit' %><br>
+                      <%= i.label 'Hasta :' %>
+                      <%= i.text_field :to_date, class: 'datepicker datepicker-with-limit' %>
+                    </div>
+                  </div>
+                  <%= f.label 'Horarios:' %>
+                  <div class="form-group form-row">
+                    <%= i.label 'Desde:' %>
+                    <%= i.time_select :from_time, {minute_step: 30, default: {hour: '12', minute: '0'}}, 
+                                      {class: 'selectpicker'} %><br>
+                    <%= i.label 'Hasta :' %>
+                    <%= i.time_select :to_time, {minute_step: 30, default: {hour: '12', minute: '0'}}, 
+                                      {class: 'selectpicker'} %>
+                  </div>
+                <% end %>
+              </div>
+
+              <hr>
+
+              <div class="form-group">
+                <%= show_errors_of @shipmentPublication.delivery_address if show_errors? %>
+
+                <%= f.label 'Domicilio de entrega' %><br />
+                <%= f.fields_for :delivery_address, @shipmentPublication.delivery_address do |i| %>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <%= i.text_field :location_description, class: 'form-control geo-input', placeholder: 'Ciudad', 
+                                       id: 'destination_description', required: true %>
+                      <%= i.hidden_field :city_name, value: @shipmentPublication.delivery_address.city_name, 
+                                         id: 'destination_city_name' %>
+                      <%= i.hidden_field :region_name, value: @shipmentPublication.delivery_address.region_name, 
+                                         id: 'destination_region_name' %>
+                      <%= i.hidden_field :country_name, value: @shipmentPublication.delivery_address.country_name, 
+                                         id: 'destination_country_name' %>
+                      <%= i.hidden_field :lat, value: @shipmentPublication.delivery_address.lat, id: 'destination_lat' %>
+                      <%= i.hidden_field :lng, value: @shipmentPublication.delivery_address.lng, id: 'destination_lng' %>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <%= i.text_field :street_name, class: 'form-control', placeholder: 'Calle', required: true %>
+                    </div>
+                    <div class="col-xs-2">
+                      <%= i.text_field :street_number, class: 'form-control', placeholder: 'Número', required: true %>
+                    </div>
+                    <div class="col-xs-2">
+                      <%= i.text_field :floor_number, class: 'form-control', placeholder: 'Piso' %>
+                    </div>
+                    <div class="col-xs-2">
+                      <%= i.text_field :apartment, class: 'form-control', placeholder: 'Dpto.' %>
+                    </div>
+                  </div>
+              <% end %>
+              </div>
+
+              <div class="form-group">
+                <%= show_errors_of @shipmentPublication.delivery_service_condition if show_errors? %>
+
+                <%= f.label 'Condición de entrega:' %>
+                <%= f.fields_for :delivery_service_condition, @shipmentPublication.delivery_service_condition do |i| %>
+                    <div class="form-group form-row">
+                      <%= select_tag :delivery_service_condition, options_for_select(service_conditions, default_service_condition), id: 'delivery-condition', class: 'selectpicker' %>
+                    </div>
+                    <div id="delivery-one-date" class="form-group form-row">
+                      <%= i.label 'Fecha:' %>
+                      <%= i.text_field :date, class: 'datepicker datepicker-with-limit' %>
+                    </div>
+                    <div id="delivery-two-dates" class="form-group" style="display: none;">
+                      <div class="form-row">
+                        <%= i.label 'Fechas:' %>
+                      </div>
+                      <div class="form-row">
+                        <%= i.label 'Desde:' %>
+                        <%= i.text_field :from_date, class: 'datepicker datepicker-with-limit' %><br>
+                        <%= i.label 'Hasta :' %>
+                        <%= i.text_field :to_date, class: 'datepicker datepicker-with-limit' %>
+                      </div>
+                    </div>
+                    <%= f.label 'Horarios:' %>
+                    <div class="form-group form-row">
+                      <%= i.label 'Desde:' %>
+                      <%= i.time_select :from_time, {minute_step: 30, default: {hour: '12', minute: '0'}}, {class: 'selectpicker'}%><br>
+                      <%= i.label 'Hasta :' %>
+                      <%= i.time_select :to_time, {minute_step: 30, default: {hour: '12', minute: '0'}}, {class: 'selectpicker'} %>
+                    </div>
+                <% end %>
+              </div>
+
+              <div id="previous-data" hidden="hidden">
+                <%= f.text_field :title %>
+                <%= f.text_field :special_care %>
+                <%= f.text_field :blanket_wrap %>
+
+                <% @shipmentPublication.items.each_with_index do |item, index| %>
+                  <%= fields_for "item[#{index}]", item do |i| %>
+                    <%= i.text_field :name %>
+                    <%= i.number_field :length_m %>
+                    <%= i.number_field :length_cm %>
+                    <%= i.number_field :width_m %>
+                    <%= i.number_field :width_cm %>
+                    <%= i.number_field :height_m %>
+                    <%= i.number_field :height_cm %>
+                    <%= i.number_field :weight_kg %>
+                    <%= i.number_field :quantity %>
+
+                  <% end %>
+                <% end %>
+
+                <%= text_field_tag :category_id, @shipmentPublication.category.id %>
+
+              </div>
+
+              <div class="actions form-row">
+                <a href="javascript:history.back()" class="btn btn-warning">Volver atrás</a>
+                <%= f.submit 'Continuar', class: 'btn btn-primary' %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>

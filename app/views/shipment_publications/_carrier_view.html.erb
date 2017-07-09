@@ -1,0 +1,64 @@
+<div id="new-bid-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><%= @carrier.business_name %></h4>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-md-2">
+            <% if @carrier.profile_picture.exists? %>
+                <%= link_to image_tag(@carrier.profile_picture.url(:thumb), class: 'media-object'),
+                            carriers_path, class: 'img-thumbnail' %>
+            <% else %>
+                <%= link_to image_tag('missing_thumb.jpg', class: 'media-object',
+                                      :size => ApplicationHelper::PROFILE_IMG_SIZE),
+                            carriers_path, class: 'img-thumbnail' %>
+            <% end %>
+          </div>
+          <div class="col-md-10">
+            <p><strong>Email:</strong> <%= @carrier.email %><br/>
+              <strong>Teléfono:</strong> <%= @carrier.phone_number %><br/>
+              <strong>Acerca de <%= @carrier.business_name %>:</strong> <%= @carrier.company_description %><br/>
+              <strong>Domicilio:</strong> <%= @carrier.address.address_text %><br/>
+              <strong>Localidad:</strong> <%= @carrier.address.city_name + ', ' + @carrier.address.region_name + ' (' + @carrier.address.country_name + ')' %></p>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="well well-sm">
+              <% if !@carrier_scorings.blank? %>
+                  <h4>Valoración promedio:</h4>
+                  <p class="scoring-detail"><strong>Calidad del servicio:</strong> <%= CarrierScoring.average_service_quality(@carrier_scorings).to_s + '/' + CarrierScoring::MAX_SCORE.to_s %><br/>
+                  <strong>Tiempo de entrega:</strong> <%= CarrierScoring.average_delivery_time(@carrier_scorings).to_s + '/' + CarrierScoring::MAX_SCORE.to_s %><br/>
+                  <strong>Recomendados:</strong> <%= CarrierScoring.recommended_quantity(@carrier_scorings).to_s + ' de ' + @carrier_scorings.size.to_s %></p>
+              <% else %>
+                  <h4>Este transportista aún no tiene calificaciones.</h4>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <% if !@shipment_publication.carrier_scoring.blank? %>
+                <div class="well well-sm">
+                  <h4>Tu valoracion sobre este envío:</h4>
+                  <p class="scoring-detail"><strong>Calidad del servicio:</strong> <%= @shipment_publication.carrier_scoring.service_quality.to_s + '/' + CarrierScoring::MAX_SCORE.to_s %><br/>
+                  <strong>Tiempo de entrega:</strong> <%= @shipment_publication.carrier_scoring.delivery_time.to_s + '/' + CarrierScoring::MAX_SCORE.to_s %><br/>
+                  <strong>Recomendado:</strong> <%= @shipment_publication.carrier_scoring.recommended ? 'Sí' : 'No' %><br/>
+                  <strong>Reseña:</strong> <%= @shipment_publication.carrier_scoring.feedback %></p>
+                </div>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

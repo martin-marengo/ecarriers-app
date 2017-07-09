@@ -1,0 +1,32 @@
+// Place all the styles related to the Bids controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.bid-item {
+  border-bottom: solid 1px #DDDDDD !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  //background-color: #d9edf7;
+  padding: 0.5em;
+}
+
+.bids-container {
+  margin-left: 0.5em;
+}
+
+.pagination {
+  margin: 10px 0 !important;
+}
+
+//#no-results-bids {
+//  margin-top: 1.2em;
+//  margin-bottom: 1em;
+//  text-align: center;
+//}
+
+.carrier_link {
+  color: #777;
+}
+a.carrier_link:hover, a.carrier_link:active, a.carrier_link:focus {
+  color: #505050;
+}

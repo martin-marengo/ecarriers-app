@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>Registrarse como Vendedor</h4>
+        </div>
+        <div class="panel-body devise-panel">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {role: 'form'}) do |f| %>
+              <%= show_messages %>
+
+              <div class="form-group">
+                <%= f.label 'Razón Social' %><br />
+                <%= f.text_field :business_name, autofocus: true, class: 'form-control', placeholder: 'Razón Social' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Email' %><br />
+                <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Teléfono' %><br />
+                <%= f.telephone_field :phone_number, class: 'form-control', placeholder: 'Teléfono' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Domicilio' %><br />
+                <%= f.text_field :address, class: 'form-control', placeholder: 'Domicilio' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Contraseña' %>
+                <% if @minimum_password_length %>
+                    <em>(<%= @minimum_password_length %> caracteres al menos)</em>
+                <% end %><br />
+                <%= f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: 'Contraseña' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Confirmar contraseña' %><br />
+                <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control', placeholder: 'Confirmar contraseña' %>
+              </div>
+
+              <div class="actions">
+                <%= f.submit 'Registrarse', class: 'btn btn-primary' %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+      <%= render 'sellers/shared/links' %>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>

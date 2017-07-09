@@ -1,0 +1,32 @@
+<div id="add-email" class="container">
+  <h1>Add Email</h1>
+  <%= form_for(current_user, :as => 'user', :url => update_omniauth_user_path(current_user), :html => { role: 'form'}) do |f| %>
+      <%= show_errors_of @user if @show_errors %>
+
+      <% if @user.has_default_email %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <div class="controls">
+          <%= f.text_field :email, :autofocus => true, :value => '', class: 'form-control input-lg', 
+                           placeholder: 'Email', required: true %>
+          <p class="help-block">Por favor, confirme su email.</p>
+        </div>
+      </div>
+      <% end %>
+      
+      <% if @user.has_default_last_name %>
+      <div class="form-group">
+        <%= f.label :last_name %>
+        <div class="controls">
+          <%= f.text_field :last_name, :value => '', class: 'form-control input-lg', placeholder: 'Apellido', 
+                           required: true %>
+          <p class="help-block">Por favor, confirme su apellido.</p>
+        </div>
+      </div>
+      <% end %>
+      
+      <div class="actions">
+        <%= f.submit 'Continue', :class => 'btn btn-primary' %>
+      </div>
+  <% end %>
+</div>

@@ -1,0 +1,253 @@
+<!-- Portfolio Grid Section -->
+<style>
+  .feature-explanation{
+    text-align: center
+  }
+</style>
+
+<section id="portfolio">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 style="text-transform: none">¿Cómo funciona eCarriers?</h2>
+        <hr class="star-primary">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 portfolio-item">
+        <h4 class="feature-explanation">¿Necesitas transporte?</h4>
+        <a href="#truck-feature" class="portfolio-link" data-toggle="modal">
+          <div class="caption">
+            <div class="caption-content">
+              <i class="fa fa-search-plus fa-3x"></i>
+            </div>
+          </div>
+          <%= image_tag 'main/stroller.png', class: 'img-responsive', alt: '' %>
+          <!-- img src="img/portfolio/cabin.png" class="img-responsive" alt="" -->
+        </a>
+      </div>
+      <div class="col-sm-4 portfolio-item">
+        <h4 class="feature-explanation">¡Gana dinero transportando!</h4>
+        <a href="#car-feature" class="portfolio-link" data-toggle="modal">
+          <div class="caption">
+            <div class="caption-content">
+              <i class="fa fa-search-plus fa-3x"></i>
+            </div>
+          </div>
+          <%= image_tag 'main/car.png', class: 'img-responsive', alt: '' %>
+          <!-- img src="img/portfolio/cake.png" class="img-responsive" alt="" -->
+        </a>
+      </div>
+      <div class="col-sm-4 portfolio-item">
+        <h4 class="feature-explanation">¿Eres un transportista?</h4>
+        <a href="#tracking-feature" class="portfolio-link" data-toggle="modal">
+          <div class="caption">
+            <div class="caption-content">
+              <i class="fa fa-search-plus fa-3x"></i>
+            </div>
+          </div>
+          <%= image_tag 'main/truck.png', class: 'img-responsive', alt: '' %>
+          <!-- img src="img/portfolio/circus.png" class="img-responsive" alt="" -->
+        </a>
+      </div>
+      <div class="col-sm-4 portfolio-item">
+        <h4 class="feature-explanation">¿Tienes una tienda online?</h4>
+        <a href="#ecommerce-feature" class="portfolio-link" data-toggle="modal">
+          <div class="caption">
+            <div class="caption-content">
+              <i class="fa fa-search-plus fa-3x"></i>
+            </div>
+          </div>
+          <%= image_tag 'main/ecommerce.png', class: 'img-responsive', alt: '' %>
+          <!-- img src="img/portfolio/game.png" class="img-responsive" alt="" -->
+        </a>
+      </div>
+      <div class="col-sm-4 portfolio-item">
+        <h4 class="feature-explanation">Rastrea tu paquete</h4>
+        <a href="#qualification-feature" class="portfolio-link" data-toggle="modal">
+          <div class="caption">
+            <div class="caption-content">
+              <i class="fa fa-search-plus fa-3x"></i>
+            </div>
+          </div>
+          <%= image_tag 'main/tracking.png', class: 'img-responsive', alt: '' %>
+          <!-- img src="img/portfolio/safe.png" class="img-responsive" alt="" -->
+        </a>
+      </div>
+      <div class="col-sm-4 portfolio-item">
+        <h4 class="feature-explanation">Califica a tus transportistas</h4>
+        <a href="#statistics-feature" class="portfolio-link" data-toggle="modal">
+          <div class="caption">
+            <div class="caption-content">
+              <i class="fa fa-search-plus fa-3x"></i>
+            </div>
+          </div>
+          <%= image_tag 'main/qualification.png', class: 'img-responsive', alt: '' %>
+          <!-- img src="img/portfolio/submarine.png" class="img-responsive" alt="" -->
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Features section -->
+<div class="portfolio-modal modal fade" id="truck-feature" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-content">
+    <div class="close-modal" data-dismiss="modal">
+      <div class="lr">
+        <div class="rl">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="modal-body">
+            <h3>Publica tu envío y recibe ofertas al instante</h3>
+            <hr class="star-primary">
+            <%= image_tag 'main/stroller.png', class: 'img-responsive img-centered img-feature', alt: '' %>
+            <!-- img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt="" -->
+            <p>Podrás publicar tus necesidades de envío y recibir ofertas de muchos transportistas.
+              Evalúa las ofertas y elige al transportista que más te convenga.</p>
+            <br>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="portfolio-modal modal fade" id="car-feature" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-content">
+    <div class="close-modal" data-dismiss="modal">
+      <div class="lr">
+        <div class="rl">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="modal-body">
+            <h3>Si tienes que viajar, puedes ofrecer transporte a otros usuarios como tú y ganar dinero</h3>
+            <hr class="star-primary">
+            <%= image_tag 'main/car.png', class: 'img-responsive img-centered img-feature', alt: '' %>
+            <!-- img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="" -->
+            <p>Publica el viaje que vas a realizar y recibe pedidos de envíos de otros usuarios.
+              Puedes dar un presupuesto a cada pedido, y deberás realizar los envíos de aquellos
+              usuarios que acepten el presupuesto.</p>
+            <br>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="portfolio-modal modal fade" id="tracking-feature" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-content">
+    <div class="close-modal" data-dismiss="modal">
+      <div class="lr">
+        <div class="rl">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="modal-body">
+            <h3>Regístrate en eCarriers para conseguir envíos y administrar tu negocio</h3>
+            <hr class="star-primary">
+            <%= image_tag 'main/truck.png', class: 'img-responsive img-centered img-feature', alt: '' %>
+            <!-- img src="img/portfolio/circus.png" class="img-responsive img-centered" alt="" -->
+            <p>Puedes buscar envíos de manera personalizada y hacer ofertas a tus posibles clientes.
+              Indica los viajes que vas a realizar y, desde nuestra aplicación móvil, el viajante podrá reportar su
+              ubicación y el estado de cada paquete, informando de manera directa a cada cliente.
+              También puedes acceder a estadísticas para conocer la demanda y saber cómo va tu negocio.</p>
+            <br>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="portfolio-modal modal fade" id="ecommerce-feature" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-content">
+    <div class="close-modal" data-dismiss="modal">
+      <div class="lr">
+        <div class="rl">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="modal-body">
+            <h3>¿Eres un vendedor y posees una tienda virtual? Busca ofertas de transporte</h3>
+            <hr class="star-primary">
+            <%= image_tag 'main/ecommerce.png', class: 'img-responsive img-centered img-feature', alt: '' %>
+            <!-- img src="img/portfolio/game.png" class="img-responsive img-centered" alt="" -->
+            <p>Aprovecha la capacidad de eCarriers para administrar la logística de tus ventas.
+              Conecta tu sitio a nuestra plataforma para publicar el envío de tus ventas al instante,
+              así podrás recibir ofertas de diferentes transportistas.</p>
+            <br>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="portfolio-modal modal fade" id="qualification-feature" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-content">
+    <div class="close-modal" data-dismiss="modal">
+      <div class="lr">
+        <div class="rl">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="modal-body">
+            <h3>Monitoreo de tu envío</h3>
+            <hr class="star-primary">
+            <%= image_tag 'main/tracking.png', class: 'img-responsive img-centered img-feature', alt: '' %>
+            <!-- img src="img/portfolio/safe.png" class="img-responsive img-centered" alt="" -->
+            <p>¿Dónde está mi envío? ¿Cuándo llegará a destino? ¡Obten esa información al instante!</p>
+            <br>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="portfolio-modal modal fade" id="statistics-feature" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-content">
+    <div class="close-modal" data-dismiss="modal">
+      <div class="lr">
+        <div class="rl">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="modal-body">
+            <h3>Califica a los transportistas</h3>
+            <hr class="star-primary">
+            <%= image_tag 'main/qualification.png', class: 'img-responsive img-centered img-feature', alt: '' %>
+            <!-- img src="img/portfolio/submarine.png" class="img-responsive img-centered" alt="" -->
+            <p>Una vez completado el servicio puedes puntuarlo y enviar una reseña.
+              ¡También puedes conocer la reputación de cada transportista antes de contratarlo! </p>
+            <br>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

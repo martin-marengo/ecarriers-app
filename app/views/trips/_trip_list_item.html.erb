@@ -1,0 +1,42 @@
+<tr>
+  <%# Origin %>
+  <td width="17.5%">
+    <p><%="#{trip.origin.full_place_name}"%></p><br/>
+  </td>
+
+  <%# Destination %>
+  <td width="17.5%">
+    <p><%="#{trip.destination.full_place_name}"%></p><br/>
+  </td>
+
+  <%# Departure date %>
+  <td width="12.5%">
+    <p><%="#{mid_date(trip.departure_date)}"%></p><br/>
+  </td>
+
+  <%# Arrival date %>
+  <td width="12.5%">
+    <p><%="#{mid_date(trip.arrival_date)}"%></p><br/>
+  </td>
+  
+  <%# Shipment publications %>
+  <td width="30%">
+    <%= render partial: 'shipment_publication_item_in_trip_view', 
+               collection: trip.shipment_publications, as: :shipment_publication
+    %>
+  </td>
+  
+  <%# Action %>
+  <td width="10%">
+    <span id="trip-action-<%= trip.id %>">
+      <% if @action == TripsController::ACTION_MARK_AS_DRIVING %>
+      <%= link_to 'Marcar viaje como iniciado', mark_as_driving_trip_path(trip), remote: true, method: :patch, 
+                  class: 'mark-trip-as-driving-button slow-job-button', data: { disable_with: 'Procesando...' } %>
+      <% else %>
+      <%= link_to 'Marcar viaje como finalizado', mark_as_finished_trip_path(trip), remote: true, method: :patch, 
+                  class: 'mark-trip-as-finished-button slow-job-button', data: { disable_with: 'Procesando...' } %>
+      <% end %>
+    </span>
+  </td>
+
+</tr>

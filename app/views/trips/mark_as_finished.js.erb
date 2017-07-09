@@ -1,0 +1,6 @@
+$("#trip-action-<%= @trip.id %>").fadeOut(function() {
+    $("#trip-action-<%= @trip.id %>").html('<%= j(
+    link_to 'El viaje fue finalizado', '#', class: 'mark-trip-as-finished-success-button',
+           disabled: :disabled) %>');
+});
+$("#trip-action-<%= @trip.id %>").fadeIn();

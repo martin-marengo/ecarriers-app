@@ -1,0 +1,50 @@
+<div class="row" id="<%= shipment_request.id %>">
+
+  <div class="col-md-7">
+
+    <div class="row">
+      <div class="col-md-7">
+        <h4>Pedido de envío:</h4>
+      </div>
+      <% if shipment_request.id %>
+          <div class="col-md-5" style="text-align: right">
+                      <span class="chat-button">
+
+                          <% if shipment_request.conversation %>
+                              <%= render partial: 'conversations/existing_conversation_button',
+                                         locals: { conversation: shipment_request.conversation } %>
+                          <% else %>
+                            <%# A diferencia de new_from_bid, esta ruta me daba el error missing required key :id.
+                            Lo solucioné agregando el parámetro shipment_request, antes sólo mandaba shipment_request_id %>
+                            <%= link_to new_from_shipment_request_conversation_path(
+                                            shipment_request, shipment_request_id: shipment_request.id),
+                                        method: :post, class: 'btn btn-info btn-chat-custom',
+                                        style: 'margin-right: 0.5em;', remote: true do %>
+                                  <i class="fa fa-comment"></i>
+                              <% end %>
+                          <% end %>
+
+                      </span>
+          </div>
+      <% end %>
+    </div>
+
+    <% if shipment_request.id %>
+        <div class="row">
+          <div class="col-md-12">
+            <p><strong><%= shipment_request.items_description %></strong></p>
+          </div>
+        </div>
+    <% end %>
+
+    <div style="margin-top: 0.5em;">
+      <%= render partial: 'shipment_requests/form', locals: { shipment_request: shipment_request } %>
+    </div>
+
+  </div>
+
+  <div class="col-md-5 budget-view">
+    <%= render partial: 'budgets/budget_client_view', locals: { shipment_request: shipment_request } %>
+  </div>
+
+</div>

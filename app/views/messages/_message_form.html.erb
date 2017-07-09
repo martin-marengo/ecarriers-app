@@ -1,0 +1,10 @@
+<%= form_for @new_message, remote: true, html: {id: 'message-form'} do |f| %>
+    <%= f.hidden_field :conversation_id %>
+    <div class="input-group">
+      <%= f.text_field :body, class: 'form-control', maxlength: 250, autocomplete: 'off',
+                       placeholder: 'Escribe un comentario...', id: 'body-input', autofocus: true %>
+      <span class="input-group-btn">
+          <%= f.button 'Enviar', class: 'btn btn-warning slow-job-button', id: 'submit-message' %>
+        </span>
+    </div>
+<% end %>

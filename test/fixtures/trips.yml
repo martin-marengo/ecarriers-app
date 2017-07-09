@@ -1,0 +1,15 @@
+one:
+  status: <%= Trip::STATUS_HAVE_TO_FETCH_ITEMS %>
+  origin: san_francisco
+  destination: devoto
+  departure_date: <%= Date.new(2017, 01, 01) %>
+  arrival_date: <%= Date.new(2017, 02, 02) %>
+  carrier: one
+
+two:
+  status: <%= Trip::STATUS_HAVE_TO_FETCH_ITEMS %>
+  carrier: two
+
+delivered:
+  status: <%= Trip::STATUS_FINISHED %>
+  carrier: two

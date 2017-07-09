@@ -1,0 +1,148 @@
+<div class="container-fluid">
+
+  <!-- HEADER -->
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="page-header custom-page-header">
+        <div class="row">
+
+          <%= flash_messages %>
+
+          <!-- TITLE + INFO -->
+          <div class="col-md-9">
+            <h3>
+               <span class="shipment-publication-first-header">
+                <% if @shipment_publication.canceled? %>
+                  <span class="fa fa-lock"></span>
+                <% end %>
+                 <%= @shipment_publication.title_text %>
+                 <%= render partial: 'actions', locals: { shipment_publication: @shipment_publication } %>
+              </span>
+              <small>
+                &nbsp;<i class="fa fa-clock-o"></i>&nbsp;<%= @shipment_publication.publication_date %>
+                &nbsp;&nbsp;<i class="fa fa-user"></i>&nbsp;
+                <% if !@shipment_publication.client.full_name.empty? %>
+                    <%= @shipment_publication.client.full_name %>
+                    <% if !@shipment_publication.client.email.empty? %>
+                        <%= ', ' + @shipment_publication.client_email %>
+                    <% end %>
+                <% else if !@shipment_publication.client.email.empty? %>
+                        <%= @shipment_publication.client_email %>
+                    <% end %>
+                <% end %>
+              </small>
+            </h3>
+          </div>
+          <!-- END TITLE + INFO -->
+
+          <!-- BACK TO PUBLICATIONS -->
+          <div class="col-md-3 bottom-align">
+            <h3 class="text-align-right">
+              <small>
+                <%= link_to content_tag(:i, '', class: 'fa fa-arrow-left') + ' Volver a las publicaciones', shipment_publications_path %>
+              </small>
+            </h3>
+          </div>
+          <!-- END BACK TO PUBLICATIONS -->
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+  <!-- END HEADER -->
+
+  <!-- BODY -->
+  <div class="row">
+
+    <div class="col-md-1">
+    </div>
+
+    <!-- BIDS -->
+    <div class="col-md-3 bids-container">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>Ofertas</h4>
+        </div>
+        <div class="panel-body">
+          <% if @bids.blank? %>
+              <div class="no-results" id="no-results-bids">
+                <h2>
+                  <small>Todavía no tienes ofertas para esta publicación</small>
+                </h2>
+              </div>
+          <% elsif !@shipment_publication.accepted_bid.nil? %>
+              <%= render partial: 'accepted_bid', locals: { bid: @shipment_publication.accepted_bid } %>
+          <% else %>
+              <div id="bids-list">
+                <%= render partial: 'bids', collection: @bids, as: :bid %>
+              </div>
+
+              <div id="pagination-container" style="text-align: center">
+                <%= will_paginate @bids, previous_label: 'Anterior', next_label: 'Siguiente', inner_window: 1 %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <% if should_show_score_button %>
+          <div>
+            <%= link_to 'Calificar transportista', new_carrier_scoring_path(id: @shipment_publication.id), class: 'rate-carrier-button' %>
+          </div>
+      <% end %>
+
+      <% if should_show_location_report_button %>
+          <div>
+            <%= link_to 'Ver ubicación actual', location_report_path(@shipment_publication.id),
+                        class: 'btn btn-success btn-lg btn-title-inline' %>
+          </div>
+      <% end %>
+    </div>
+    <!-- END BIDS -->
+
+    <!-- PUBLICATION DETAIL -->
+    <div class="col-md-7">
+
+      <!-- MAIN DETAIL -->
+      <div class="row">
+
+        <!-- MAP -->
+        <div class="col-md-7">
+          <div class="map-container">
+            <%= hidden_field_tag :origin_lat, @shipment_publication.origin_lat %>
+            <%= hidden_field_tag :origin_lng, @shipment_publication.origin_lng %>
+            <%= hidden_field_tag :destination_lat, @shipment_publication.destination_lat %>
+            <%= hidden_field_tag :destination_lng, @shipment_publication.destination_lng %>
+            <%= hidden_field_tag :origin_text, @shipment_publication.origin_location_text %>
+            <%= hidden_field_tag :destination_text, @shipment_publication.destination_location_text %>
+            <div id="shipment_road_map" style="width: 600px; height: 450px;"></div>
+          </div>
+        </div>
+        <!-- END MAP -->
+
+        <!-- ORIGIN / DESTINATION WELLS -->
+        <div class="col-md-5">
+          <%= render partial: 'shared/shipment_publication_pickup_delivery_information',
+                     locals: {shipment_publication: @shipment_publication} %>
+        </div>
+        <!-- END ORIGIN / DESTINATION WELLS -->
+
+      </div>
+      <!-- END MAIN DETAIL -->
+
+      <!-- PUBLICATION ITEMS -->
+      <div class="row">
+        <div class="col-md-12">
+          <%= render partial: 'shipment_publication_items', locals: {shipment_publication: @shipment_publication } %>
+        </div>
+      </div>
+      <!-- END PUBLICATION ITEMS -->
+    </div>
+    <!-- END PUBLICATION DETAIL -->
+
+    <div class="col-md-1"></div>
+  </div>
+  <!-- END BODY -->
+
+</div>

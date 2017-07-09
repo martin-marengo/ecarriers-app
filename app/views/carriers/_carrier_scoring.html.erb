@@ -1,0 +1,10 @@
+<div class="jumbotron">
+
+  <h2>Valoración del servicio</h2>
+
+    <p><strong>Calidad del servicio:</strong> <%= carrier_scoring.service_quality.to_s + '/' + CarrierScoring::MAX_SCORE.to_s %><br/>
+      <strong>Tiempo de entrega:</strong> <%= carrier_scoring.delivery_time.to_s + '/' + CarrierScoring::MAX_SCORE.to_s %><br/>
+      <strong>Recomendado:</strong> <%= carrier_scoring.recommended ? 'Sí' : 'No' %><br/>
+      <strong>Reseña:</strong> <%= carrier_scoring.feedback %></p>
+
+</div>

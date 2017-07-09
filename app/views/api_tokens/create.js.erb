@@ -1,0 +1,4 @@
+$("#replaceable").fadeOut(function() {
+    $('#replaceable').html('<%= j render partial: 'token_created', locals: {token: token} %>');
+});
+$("#replaceable").fadeIn();

@@ -1,0 +1,53 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div  class="page-header custom-page-header">
+        <%= flash_messages %>
+        <h2><%= @title %></h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <table class="table table-striped only-header-table">
+        <thead>
+        <tr>
+          <th width="17.5%">Orígen</th>
+          <th width="17.5%">Destino</th>
+          <th width="12.5%">Fecha de salida</th>
+          <th width="12.5%">Fecha de llegada</th>
+          <th width="30%">Envíos</th>
+          <th width="10%">Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+      <% if @trips.blank? %>
+          <div id="no-results">
+            <h2>
+              <small>No hay viajes para mostrar</small>
+            </h2>
+          </div>
+      <% end %>
+
+      <div id="trips">
+        <div class="trip-item <%= cycle('even', 'odd') %>">
+          <table class="table table-borderless">
+            <tbody>
+            <%= render partial: 'trip_list_item',
+                       collection: @trips, as: :trip
+            %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

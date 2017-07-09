@@ -1,0 +1,6 @@
+$("#trip-action-<%= @trip.id %>").fadeOut(function() {
+    $("#trip-action-<%= @trip.id %>").html('<%= j(
+    link_to '¡Viaje iniciado!', '#', class: 'mark-trip-as-driving-success-button',
+           disabled: :disabled) %>');
+});
+$("#trip-action-<%= @trip.id %>").fadeIn();

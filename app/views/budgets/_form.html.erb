@@ -1,0 +1,45 @@
+<div id="budget-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><%= @budget.shipment_request.user.full_name %></h4>
+      </div>
+
+      <%= form_for [@shipment_request, @budget], remote: true do |f| %>
+
+          <div class="modal-body">
+            <div class="messages_flash_container"></div>
+
+            <%= f.hidden_field :shipment_request_id, value: @budget.shipment_request.id %>
+            <div class="input-group">
+              <span class="input-group-addon">Precio en ARS</span>
+              <% if @budget.id %>
+                  <%= f.number_field :price, value: @budget.price.amount, class: 'form-control input-lg', step: 0.01,
+                                     placeholder: 'Precio', id: 'price-input', required: true %>
+              <% else %>
+                  <%= f.number_field :price, value: '', class: 'form-control input-lg', step: 0.01,
+                                     placeholder: 'Precio', id: 'price-input', required: true %>
+              <% end %>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <%= f.button 'Aceptar', class: 'btn btn-primary btn-lg btn-block', data: {disable_with: 'Procesando...'} %>
+
+            <% if @budget.id and !@budget.errors.any? %>
+                <br/>
+                <%= link_to 'Eliminar', shipment_request_budget_path(@shipment_request, @budget), method: :delete,
+                            class: 'btn btn-danger btn-lg btn-block', remote: true,
+                            data: {disable_with: 'Procesando...', confirm: '¿Deseas eliminar el presupuesto?'},
+                            title: 'Al eliminar el presupuesto, estas rechazando el pedido de envío de este usuario. Podrás crear uno nuevo.' %>
+            <% end %>
+
+          </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="row" style="margin-top: 2em">
+    <div class="col-md-2">
+    </div>
+
+    <div class="col-md-8">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>Crear un viaje</h4>
+        </div>
+        <div class="panel-body devise-panel">
+
+          <%= form_for(@trip) do |f| %>
+              <%= show_errors_of @trip if @show_errors %>
+
+              <div class="form-group">
+                <%= f.label 'Origen' %><br />
+                <%= f.fields_for :origin, @trip.origin do |i| %>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <%= text_field_tag :location_description, @trip.origin.name, class: 'form-control geo-input',
+                                           placeholder: 'Ciudad', id: 'origin_description', required: true %>
+                        <%= i.hidden_field :name, id: 'origin_city_name' %>
+                        <%= i.hidden_field :region_name, id: 'origin_region_name' %>
+                        <%= i.hidden_field :country_name, id: 'origin_country_name' %>
+                      </div>
+                    </div>
+                <% end %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Fecha de salida:' %><br>
+                <div class="row">
+                  <div class="col-xs-4">
+                    <%= f.text_field :departure_date, class: 'datepicker datepicker-with-limit form-control', required: true, placeholder: 'Indica una fecha' %>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="form-group">
+                <%= f.label 'Destino' %><br />
+                <%= f.fields_for :destination, @trip.destination do |i| %>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <%= text_field_tag :location_description, @trip.origin.name, class: 'form-control geo-input',
+                                           placeholder: 'Ciudad', id: 'destination_description', required: true %>
+                        <%= i.hidden_field :name, id: 'destination_city_name' %>
+                        <%= i.hidden_field :region_name, id: 'destination_region_name' %>
+                        <%= i.hidden_field :country_name, id: 'destination_country_name' %>
+                      </div>
+                    </div>
+                <% end %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Fecha estimada de llegada:' %><br>
+                <div class="row">
+                  <div class="col-xs-4">
+                    <%= f.text_field :arrival_date, class: 'datepicker datepicker-with-limit form-control', required: true, placeholder: 'Indica una fecha' %>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="form-group">
+                <%= f.label 'Publicaciones a enviar:' %><br>
+                <% @shipment_publications.each do |shipment_publication| %>
+                    <div>
+                      <div class="col-md-1">
+                        <%= check_box_tag 'trip[shipment_publication_ids][]', shipment_publication.id, @trip.has_shipment_publication?(shipment_publication)  %>
+                      </div>
+                      <div class="col-md-11">
+                        <%= render partial: 'shipment_publication_item_in_trip_view',
+                                   locals: {shipment_publication: shipment_publication} %>
+                      </div>
+                    </div>
+                <% end %>
+              </div>
+              </div>
+
+              <hr>
+
+              <div class="actions form-row">
+                <a href="javascript:history.back()" style="margin-right: 1em; margin-left: 1em;"><i class="fa fa-arrow-left"></i> Volver atrás</a>
+                <%= f.submit 'Crear viaje', class: 'btn btn-primary' %>
+              </div>
+          <% end %>
+
+          </div>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+  </div>
+</div>
+</div>

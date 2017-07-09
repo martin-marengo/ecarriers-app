@@ -1,0 +1,13 @@
+<% if !@shipment_requests or @shipment_requests.blank? %>
+$('#no-results-shipment_requests').css("display", "block");
+<% else %>
+$('#no-results-shipment_requests').css("display", "none");
+<% end %>
+
+$('#shipment-requests-list').html('<%= j render partial: 'shipment_requests/shipment_requests',
+  collection: @shipment_requests, as: :shipment_request %>');
+
+$('#pagination-container').html('<%= j will_paginate @shipment_requests,
+                                  previous_label: 'Anterior', next_label: 'Siguiente', inner_window: 1 %>');
+
+$('.pagination a').attr('data-remote', 'true');

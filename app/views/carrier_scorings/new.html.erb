@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2"></div>
+
+    <div class="col-md-8">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          Califique al transportista:
+        </div>
+        <div class="panel-body">
+
+          <%= form_for(@carrier_scoring) do |f| %>
+              <%= show_errors_of @carrier_scoring if @carrier_scoring.errors.any? %>
+
+              <div id="quality-service-stars" class="form-group">
+                <%= f.label :quality_service, 'Calidad del servicio:' %><br>
+                <% CarrierScoring.scoring_interval.each do |score| %>
+                    <label>
+                      <%= radio_button(:carrier_scoring, :service_quality, score, class: 'quality-service-input', hidden: :hidden) %>
+                      <%= content_tag :i, '', id: "quality-service-icon-#{score}", class: 'fa fa-star-o fa-2x scoring-star-icon' %>
+                    </label>
+                <% end %>
+              </div>
+
+              <div id="delivery-time-stars" class="form-group">
+                <%= f.label :delivery_time, 'Tiempo de entrega:' %><br>
+                <% CarrierScoring.scoring_interval.each do |score| %>
+                    <label>
+                      <%= radio_button(:carrier_scoring, :delivery_time, score, class: 'delivery-time-input', hidden: :hidden) %>
+                      <%= content_tag :i, '', id: "delivery-time-icon-#{score}", class: 'fa fa-star-o fa-2x scoring-star-icon' %>
+                    </label>
+                <% end %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :feedback %><br>
+                <%= f.text_area :feedback, class: 'form-control' %>
+              </div>
+
+              <div class="form-group recommended-field">
+                <%= f.label :recommended, '¿Lo recomendarías?:' %><br>
+
+                <div class="container row" style="float: left">
+                  <div class="col-md-1">
+                    <label>
+                      <%= radio_button(:carrier_scoring, :recommended, false, id: 'not-recommended-input', hidden: :hidden) %>
+                      <%= content_tag :i, '', class: 'fa fa-thumbs-o-down fa-2x', id: 'thumbs-down-icon' %>
+                    </label>
+                  </div>
+
+                  <div class="col-md-1">
+                    <label>
+                      <%= radio_button(:carrier_scoring, :recommended, true, id: 'recommended-input', hidden: :hidden) %>
+                      <%= content_tag :i, '', class: 'fa fa-thumbs-o-up  fa-2x', id: 'thumbs-up-icon' %>
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+
+              <%= f.hidden_field :shipment_publication_id, value: @shipment_publication.id %>
+
+              <div class="actions">
+                <%= link_to content_tag(:i, '', class: 'fa fa-arrow-left') + ' Atras', :back, class: 'inline-back-link' %>
+                <%= f.submit 'Enviar calificación', class: 'btn btn-primary', data: { disable_with: 'Procesando...' } %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-2"></div>
+  </div>
+</div>

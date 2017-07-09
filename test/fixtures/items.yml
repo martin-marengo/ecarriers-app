@@ -1,0 +1,49 @@
+valid_complete:
+  length_m: 0
+  length_cm: 50
+  width_m: 0
+  width_cm: 85
+  height_m: 1
+  height_cm: 15
+  weight_kg: 15
+  quantity: 2
+  name: Valid complete
+  shipment_publication: one
+
+valid_incomplete_measures:
+  length_m: 0
+  width_m: 0
+  width_cm: 85
+  weight_kg: -15
+  quantity: 2
+  name: MyText
+
+valid_incomplete:
+  quantity: 1
+  name: MyText
+
+invalid_incomplete:
+  quantity: -1
+  name: ''
+
+invalid_complete_1:
+  length_m: -1
+  length_cm: 100
+  width_m: 51
+  width_cm: -1
+  height_m: 51
+  height_cm: 500
+  weight_kg: 0
+  quantity: 10000000
+  name: ''
+
+invalid_complete_2:
+  length_m: 51
+  length_cm: -1
+  width_m: -1
+  width_cm: 100
+  height_m: 51
+  height_cm: 500
+  weight_kg: 1000000.1
+  quantity: 0
+  name: My text

@@ -1,0 +1,116 @@
+<div>
+  <%# ORIGIN WELL %>
+  <div class="well well-sm">
+    <h4>Orígen</h4>
+
+    <% if shipment_publication.origin_part_1 %>
+        <p><strong><%="#{shipment_publication.origin_part_1}" %></strong>
+          <% if shipment_publication.origin_part_2 %>
+              <%= "#{shipment_publication.origin_part_2}" %>
+          <% end %>
+          <br/><em><%= shipment_publication.pickup_address_text %></em>
+        </p>
+    <% else %>
+        <% if !shipment_publication.origin_part_3.empty? %>
+            <p>
+              <em><%="#{shipment_publication.origin_part_3}"%></em>
+              <br/><em><%= shipment_publication.pickup_address_text %></em>
+            </p>
+        <% else %>
+            <p>
+              <em><%= ApplicationHelper::ORIGIN_DEFAULT_TEXT %></em>
+              <br/><em><%= shipment_publication.pickup_address_text %></em>
+            </p>
+        <% end %>
+    <% end %>
+
+    <strong><%= ApplicationHelper::PICKUP_TEXT %></strong>
+
+    <% if shipment_publication.pickup_service_condition %>
+
+        <% if shipment_publication.pickup_service_condition.instance_of? OnCondition %>
+            <%="#{short_date(shipment_publication.pickup_service_condition.date)}"%>
+
+        <% else if shipment_publication.pickup_service_condition.instance_of? BeforeCondition %>
+                <%= ApplicationHelper::BEFORE_CONDITION_TEXT %>
+                <%="#{short_date(shipment_publication.pickup_service_condition.date)}"%>
+
+            <% else if shipment_publication.pickup_service_condition.instance_of? AfterCondition %>
+                    <%= ApplicationHelper::AFTER_CONDITION_TEXT %>
+                    <%="#{short_date(shipment_publication.pickup_service_condition.date)}"%>
+
+                <% else if shipment_publication.pickup_service_condition.instance_of? BetweenCondition %>
+                        <%= ApplicationHelper::BETWEEN_CONDITION_TEXT_1 %>
+                        <%="#{short_date(shipment_publication.pickup_service_condition.from_date)}
+                           #{ApplicationHelper::BETWEEN_CONDITION_TEXT_2}#{short_date(@hipment_publication.pickup_service_condition.to_date)}"%>
+
+                    <% end %>
+                <% end %>
+            <% end %>
+        <% end %>
+        <% unless service_condition_time_text(shipment_publication.pickup_service_condition).blank? %>
+            <%=", #{service_condition_time_text(shipment_publication.pickup_service_condition)}"%>
+        <% end %>
+    <% else %>
+        <%= ApplicationHelper::READY_NOW_PICKUP %>
+    <% end %>
+
+  </div>
+  <%# DESTINATION WELL %>
+  <div class="well well-sm">
+    <h4>Destino</h4>
+
+    <% if shipment_publication.destination_part_1 %>
+        <p><strong><%="#{shipment_publication.destination_part_1}"%></strong>
+          <% if shipment_publication.destination_part_2 %>
+              <%= "#{shipment_publication.destination_part_2}" %>
+          <% end %>
+          <br/><em><%= shipment_publication.delivery_address_text %></em>
+        </p>
+    <% else %>
+        <% if !shipment_publication.destination_part_3.empty? %>
+            <p>
+              <em><%="#{shipment_publication.destination_part_3}"%></em>
+              <br/><em><%= shipment_publication.delivery_address_text %></em>
+            </p>
+        <% else %>
+            <p>
+              <em><%= ApplicationHelper::DESTINATION_DEFAULT_TEXT %></em>
+              <br/><em><%= shipment_publication.delivery_address_text %></em>
+            </p>
+        <% end %>
+    <% end %>
+
+    <strong><%= ApplicationHelper::DELIVERY_TEXT %></strong>
+
+    <% if shipment_publication.delivery_service_condition %>
+
+        <% if shipment_publication.delivery_service_condition.instance_of? OnCondition %>
+            <%="#{short_date(shipment_publication.delivery_service_condition.date)}"%>
+
+        <% else if shipment_publication.delivery_service_condition.instance_of? BeforeCondition %>
+                <%= ApplicationHelper::BEFORE_CONDITION_TEXT %>
+                <%="#{short_date(shipment_publication.delivery_service_condition.date)}"%>
+
+            <% else if shipment_publication.delivery_service_condition.instance_of? AfterCondition %>
+                    <%= ApplicationHelper::AFTER_CONDITION_TEXT %>
+                    <%="#{short_date(shipment_publication.delivery_service_condition.date)}"%>
+
+                <% else if shipment_publication.delivery_service_condition.instance_of? BetweenCondition %>
+                        <%= ApplicationHelper::BETWEEN_CONDITION_TEXT_1 %>
+                        <%="#{short_date(shipment_publication.delivery_service_condition.from_date)}
+                           #{ApplicationHelper::BETWEEN_CONDITION_TEXT_2}#{short_date(shipment_publication.delivery_service_condition.to_date)}"%>
+
+                    <% end %>
+                <% end %>
+            <% end %>
+        <% end %>
+        <% unless service_condition_time_text(shipment_publication.delivery_service_condition).blank? %>
+            <%=", #{service_condition_time_text(shipment_publication.delivery_service_condition)}"%>
+        <% end %>
+
+    <% else %>
+        <%= ApplicationHelper::ASAP_DELIVERY %>
+    <% end %>
+  </div>
+</div>

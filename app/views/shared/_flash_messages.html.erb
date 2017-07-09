@@ -1,0 +1,9 @@
+<% flash.each do |msg_type, message| %>
+    <%# se valida este mensaje no deseado, dice 'true' %>
+    <% unless msg_type.eql? 'timedout' %>
+        <div class="alert <%= bootstrap_class_for msg_type %> alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <%= message %>
+        </div>
+    <% end %>
+<% end %>

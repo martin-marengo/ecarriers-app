@@ -1,0 +1,119 @@
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+      </button>
+      <%= link_to image_tag('logo_inverse_48.png'), root_path %>
+      <%= link_to image_tag('isologo_white_3.png'), root_path, style: 'margin-left: 0.7em;' %>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="hidden">
+          <a href="#page-top"></a>
+        </li>
+        <% if !any_signed_in? %>
+        <li>
+          <%= link_to content_tag(:i, '', class: 'fa fa-user') + ' Cliente', new_user_session_path,
+                      class: (defined?(resource_name) and resource_name == :user) ? 'activo' : '' %>
+        </li>
+        <li>
+          <%= link_to content_tag(:i, '', class: 'fa fa-truck') + ' Transportista', new_carrier_session_path,
+                      class: (defined?(resource_name) and resource_name == :carrier) ? 'activo' : '' %>
+        </li>
+        <li>
+          <%= link_to content_tag(:i, '', class: 'fa fa-briefcase') + ' Vendedor', new_seller_session_path,
+                      class: (defined?(resource_name) and resource_name == :seller) ? 'activo' : '' %>
+        </li>
+        <% else %>
+            <% if user_signed_in? %>
+                <li>
+                  <%= link_to content_tag(:i, '', class: 'fa fa-truck') + ' Publicar envío', shipment_publication_index_path,
+                              class: controller_name == 'shipment_publication' ? 'activo' : '',
+                              title: 'Publica tu necesidad de envío y recibe ofertas de diferentes transportistas, para que puedas elegir tu opción ideal.' %>
+                </li>
+                <li>
+                  <%= link_to content_tag(:i, '', class: 'fa fa-car') + ' Publicar viaje', new_user_trip_publication_path,
+                              class: (controller_name == 'user_trip_publications' and action_name == 'new') ? 'activo' : '',
+                              title: 'Publica un viaje que tengas planeado y gana dinero ofreciendo tus servicios como transportista ocasional' %>
+                </li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user"></i> <%= current_user.email %> <i class="fa fa-caret-down"></i></a>
+                  <ul class="dropdown-menu">
+                    <!--<li>
+                      <%# TODO cambiar ruta cuando haya pagina de cliente %>
+                      <%# link_to content_tag(:i, '', class: 'fa fa-user') + ' Perfil', root_path %>
+                    </li> -->
+                    <li>
+                      <%= link_to content_tag(:i, '', class: 'fa fa-search') + ' Encontrar viajes', user_trip_publications_path,
+                                  title: 'Envía tus artículos a través de viajes que realizan usuarios como tú. ¡Puedes encontrar grandes precios!' %>
+                    </li>
+                    <li>
+                      <%= link_to content_tag(:i, '', class: 'fa fa-truck') + ' Mis envíos', shipment_publications_path,
+                                  title: 'Mira los envíos que has publicado en eCarriers' %>
+                    </li>
+                    <li>
+                      <%= link_to content_tag(:i, '', class: 'fa fa-car') + ' Mis viajes', my_publications_user_trip_publications_path,
+                                  title: 'Mira los viajes que has publicado en eCarriers' %>
+                    </li>
+                    <li>
+                      <%= link_to content_tag(:i, '', class: 'fa fa-pencil') + ' Editar perfil', edit_user_registration_path %>
+                    </li>
+                    <li>
+                      <%= link_to content_tag(:i, '', class: 'fa fa-sign-out') + ' Cerrar Sesión',
+                                  destroy_user_session_path, method: :delete %>
+                    </li>
+                  </ul>
+                </li>
+            <% end %>
+            <% if carrier_signed_in? %>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-truck"></i> <%= current_carrier.email %> <i class="fa fa-caret-down"></i></a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <%= link_to content_tag(:i, '', class: 'fa fa-truck') + ' Dashboard', carriers_path %>
+                    </li>
+                    <li>
+                      <%= link_to content_tag(:i, '', class: 'fa fa-pencil') + ' Editar perfil', edit_carrier_registration_path %>
+                    </li>
+                    <li>
+                      <%= link_to content_tag(:i, '', class: 'fa fa-sign-out') + ' Cerrar Sesión',
+                                  destroy_carrier_session_path, method: :delete %>
+                    </li>
+                  </ul>
+                </li>
+            <% end %>
+            <% if seller_signed_in? %>
+                <li>
+                  <%= link_to content_tag(:i, '', class: 'fa fa-list-alt') + ' Mis publicaciones', shipment_publications_path %>
+                </li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-briefcase"></i> <%= current_seller.email %> <i class="fa fa-caret-down"></i></a>
+                  <ul class="dropdown-menu">
+                    <!-- <li>
+                      <%# TODO cambiar ruta cuando haya pagina de vendedor %>
+                      <%# link_to content_tag(:i, '', class: 'fa fa-user') + ' Perfil', root_path %>
+                    </li> -->
+                    <li>
+                      <%= link_to content_tag(:i, '', class: 'fa fa-pencil') + ' Editar perfil', edit_seller_registration_path %>
+                    </li>
+                    <li>
+                      <%= link_to content_tag(:i, '', class: 'fa fa-code') + ' API', api_tokens_path %>
+                    </li>
+                    <li>
+                      <%= link_to content_tag(:i, '', class: 'fa fa-sign-out') + ' Cerrar Sesión',
+                                  destroy_seller_session_path, method: :delete %>
+                    </li>
+                  </ul>
+                </li>
+            <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

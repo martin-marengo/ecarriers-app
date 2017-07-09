@@ -1,0 +1,23 @@
+<div class="container">
+
+  <div class="row">
+    <h2>Seleccione la categoría</h2>
+    <hr>
+  </div>
+
+  <div class="row seven-cols">
+    <% parent_categories.each do |category| %>
+    <%= link_to next_category_step_path(category) do %>
+    <div class="col-lg-1 col-md-3 col-sm-4 col-xs-6">
+      <div class="thumbnail" style="height: 17.5em">
+        <%= image_tag('shipment_publication/' + category.code_name, class: 'category-icon img-responsive img-centered img-feature') %>
+        <div class="caption" contenteditable="true">
+          <h4 style="text-align: center"><%= content_tag :b, category.name %></h4>
+          <%= content_tag :p, category.description %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <% end %>
+  </div>
+</div>

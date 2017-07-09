@@ -1,0 +1,58 @@
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+      <div  class="page-header custom-page-header">
+        <%= flash_messages %>
+        <h2><%= @title %></h2>
+      </div>
+    </div>
+
+    <div class="col-md-3"></div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+
+      <table class="table table-striped only-header-table">
+        <thead>
+        <tr>
+          <th width="30%">Envío</th>
+          <th width="17.5%">Orígen</th>
+          <th width="17.5%">Destino</th>
+          <th width="25%">Condiciones</th>
+          <th width="10%">Distancia</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+      <% if @pending_shipments.blank? %>
+          <div id="no-results">
+            <h2>
+              <small>No hay publicaciones para mostrar</small>
+            </h2>
+          </div>
+      <% end %>
+
+      <div id="shipment_publications">
+        <%= render partial: 'shipment_publication_list_item',
+                   collection: @pending_shipments, as: :shipment_publication
+        %>
+      </div>
+
+    </div>
+
+    <div class="col-md-3"></div>
+
+  </div>
+
+</div>

@@ -1,0 +1,37 @@
+<div id="confirm-accepted-bid-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Aceptar oferta de <%= @bid.carrier.business_name %></h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="messages_flash_container"></div>
+        <div id="new-conversation">
+          <h2><small>¿Estás seguro de aceptar la oferta de <%= @bid.carrier.business_name %>?</small></h2><br/>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="input-group">
+          <span class="input-group-btn">
+            <%= form_for(@bid, url: accept_bids_path, method: :post) do |f| %>
+              <%= f.hidden_field :id %>
+
+              <div class="actions">
+                <%= link_to '#' , class: 'cancel-confirm-accepted-bid-button', 'data-dismiss' => 'modal' do %>
+                  Cancelar
+                <% end %>
+
+                <%= f.submit 'Aceptar Oferta', class: 'accept-bid-button', data: {disable_with: 'Procesando...'} %>
+              </div>
+            <% end %>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

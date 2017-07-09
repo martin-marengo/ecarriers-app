@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div  class="page-header custom-page-header">
+        <div class="row">
+          <div id="show_user_publication_flash_container">
+            <%= flash_messages %>
+          </div>
+          <div class="col-md-9">
+            <h3>
+              <%= @shipment_publication.title_text %> - <i class="fa fa-map-marker"></i> Ubicación actual
+            </h3>
+          </div>
+          <div class="col-md-3 bottom-align">
+            <h3 class="text-align-right">
+              <small>
+                <%= link_to content_tag(:i, '', class: 'fa fa-arrow-left') + ' Volver', :back %>
+              </small>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-12">
+
+      <div class="row">
+        <div class="container">
+          <div class="col-md-7">
+            <% if @location_report.blank? %>
+              <h4>El transportista no ha reportado su posición todavía :(</h4>
+            <% else %>
+              <div class="map-container">
+                <%= hidden_field_tag :origin_lat, @shipment_publication.origin_lat %>
+                <%= hidden_field_tag :origin_lng, @shipment_publication.origin_lng %>
+                <%= hidden_field_tag :destination_lat, @shipment_publication.destination_lat %>
+                <%= hidden_field_tag :destination_lng, @shipment_publication.destination_lng %>
+                <%= hidden_field_tag :current_location_lat, @location_report.lat %>
+                <%= hidden_field_tag :current_location_lng, @location_report.lng %>
+                <div id="report_location_map" style="width: 600px; height: 450px;"></div>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="col-md-5">
+            <%= render partial: 'shared/shipment_publication_pickup_delivery_information', 
+                       locals: {shipment_publication: @shipment_publication} %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

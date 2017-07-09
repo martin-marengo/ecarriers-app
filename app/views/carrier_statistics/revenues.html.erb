@@ -1,0 +1,40 @@
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+      <div  class="page-header custom-page-header">
+        <%= flash_messages %>
+        <h2>Ingresos</h2>
+      </div>
+    </div>
+
+    <div class="col-md-3"></div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+
+      <%= column_chart @revenues , xtitle: 'Mes', ytitle: 'Ingresos', download: true %>
+
+      <% if @revenues.blank? %>
+          <div id="no-results">
+            <h2>
+              <small>No hay datos para mostrar</small>
+            </h2>
+          </div>
+      <% end %>
+
+    </div>
+
+    <div class="col-md-3"></div>
+
+  </div>
+
+</div>

@@ -1,0 +1,40 @@
+<% if !@user_trip_publications or @user_trip_publications.blank? %>
+  $('#no-results').css("display", "block");
+<% else %>
+  $('#no-results').css("display", "none");
+<% end %>
+
+// Si la respuesta es por paginacion, se añade el contenido al final con append().
+// Si la respuesta es por filtrado (existen los parametros de filtrado), se reemplaza el contenido con html().
+<% if params[:pagination] %>
+  var delimiter =
+      $('<div class="page-delimiter" data-page="<%= params[:page] %>"></div>');
+  $('#user_trip_publications').append(delimiter);
+  $('#user_trip_publications').append('<%= j render partial: 'trip_list_item',
+  collection: @user_trip_publications, as: :user_trip_publication %>');
+
+  <% if @user_trip_publications.next_page %>
+    $('.pagination').replaceWith('<%= j will_paginate @user_trip_publications, params: { origin: params[:origin],
+                                                                 destination: params[:destination],
+                                                                 departure_date: params[:departure_date],
+                                                                 pagination: true } %>');
+  <% else %>
+    $('#infinite-scrolling .pagination').remove();
+    $('#user_trip_publications').append('<%= j render partial: 'layouts/footer_dashboard' %>');
+  <% end %>
+<% else %>
+  // Si es filtrado, reestablecer la vista por completo
+  $('#user_trip_publications').html('<%= j link_to '', carriers_path, id: 'update_publication', style: 'display: none' %>');
+  $('#user_trip_publications').append('<%= j render partial: 'trip_list_item',
+  collection: @user_trip_publications, as: :user_trip_publication %>');
+
+  <% if @user_trip_publications.next_page %>
+    $('#infinite-scrolling').html('<%= j will_paginate @user_trip_publications, params: { origin: params[:origin],
+                                                                 destination: params[:destination],
+                                                                 departure_date: params[:departure_date],
+                                                                 pagination: true } %>');
+  <% else %>
+    $('#infinite-scrolling .pagination').remove();
+    $('#user_trip_publications').append('<%= j render partial: 'layouts/footer_dashboard' %>');
+  <% end %>
+<% end %>

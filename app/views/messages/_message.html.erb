@@ -1,0 +1,62 @@
+<% if message.id %>
+    <% if message.person.class.equal? @current_person.class and message.person.id.equal? @current_person.id %>
+
+        <!-- Persona actual, alineado a la derecha -->
+        <li class="right clearfix">
+        <span class="chat-img pull-right">
+          <% if message.person.instance_of?(Carrier) %>
+              <% if message.person.profile_picture.exists? %>
+                <%= image_tag(message.person.profile_picture.url(:chat), class: 'img-circle') %>
+              <% else %>
+                <%= image_tag('missing_thumb.jpg', class: 'img-circle',
+                              :size => ApplicationHelper::AVATAR_IMG_SIZE) %>
+              <% end %>
+          <% else %>
+              <img src="https://api.adorable.io/avatars/50/abott@adorable.io.png" alt="Avatar" class="img-circle"/>
+              <%# image_tag('missing_thumb.jpg', class: 'img-circle',
+                            :size => ApplicationHelper::AVATAR_IMG_SIZE) %>
+          <% end %>
+        </span>
+          <div class="chat-body clearfix">
+            <div class="header">
+              <small class="text-muted">
+                <i class="fa fa-clock-o fa-fw"></i> <%= message.created_time %></small>
+              <strong class="pull-right primary-font"><%= message.person.instance_of?(Carrier) ? message.person.business_name : message.person.full_name %></strong>
+            </div>
+            <p>
+              <%= message.body %>
+            </p>
+          </div>
+        </li>
+
+    <% else %>
+
+        <!-- Persona actual, alineado a la izquierda -->
+        <li class="left clearfix">
+        <span class="chat-img pull-left">
+          <% if message.person.instance_of?(Carrier) %>
+              <% if message.person.profile_picture.exists? %>
+                <%= image_tag(message.person.profile_picture.url(:chat), class: 'img-circle') %>
+              <% else %>
+                <%= image_tag('missing_thumb.jpg', class: 'img-circle',
+                              :size => ApplicationHelper::AVATAR_IMG_SIZE) %>
+              <% end %>
+          <% else %>
+              <img src="https://api.adorable.io/avatars/50/abott@adorable.io.png" alt="Avatar" class="img-circle"/>
+          <% end %>
+        </span>
+          <div class="chat-body clearfix">
+            <div class="header">
+              <strong class="primary-font"><%= message.person.instance_of?(Carrier) ? message.person.business_name : message.person.full_name %></strong>
+              <small class="pull-right text-muted">
+                <i class="fa fa-clock-o fa-fw"></i> <%= message.created_time %>
+              </small>
+            </div>
+            <p>
+              <%= message.body %>
+            </p>
+          </div>
+        </li>
+
+    <% end %>
+<% end %>

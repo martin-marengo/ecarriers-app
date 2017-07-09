@@ -1,0 +1,130 @@
+<div class="row">
+  <div class="col-lg-3">
+  </div>
+  <div class="col-lg-6">
+    <h2 class="page-header">Editar datos de la cuenta</h2>
+  </div>
+  <div class="col-lg-3">
+  </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+    </div>
+
+    <div class="col-lg-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>Información</h4>
+        </div>
+        <div class="panel-body devise-panel">
+
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+              <%= show_messages %>
+
+              <div class="form-group">
+                <%= f.label :business_name %><br />
+                <%= f.text_field :business_name, class: 'form-control', autofocus: true %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :email %><br />
+                <%= f.email_field :email, class: 'form-control' %>
+              </div>
+
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                  <div>Esperando la confirmación del mail: <%= resource.unconfirmed_email %></div>
+              <% end %>
+
+              <div class="form-group">
+                <%= f.label :phone_number %><br />
+                <%= f.text_field :phone_number, class: 'form-control' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Domicilio' %><br />
+                <%= f.fields_for :address do |i| %>
+                    <%= i.hidden_field :city_id %>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <%= i.text_field :location_description, class: 'form-control geo-input', placeholder: 'Ciudad' %>
+                        <%= i.hidden_field :city_name, value: resource.address.city_name, id: 'city_name' %>
+                        <%= i.hidden_field :region_name, value: resource.address.region_name, id: 'region_name' %>
+                        <%= i.hidden_field :country_name, value: resource.address.country_name, id: 'country_name' %>
+                        <%= i.hidden_field :lat, value: resource.address.lat, id: 'lat' %>
+                        <%= i.hidden_field :lng, value: resource.address.lng, id: 'lng' %>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <%= i.text_field :street_name, class: 'form-control', placeholder: 'Calle' %>
+                      </div>
+                      <div class="col-xs-2">
+                        <%= i.text_field :street_number, class: 'form-control', placeholder: 'Número' %>
+                      </div>
+                      <div class="col-xs-2">
+                        <%= i.text_field :floor_number, class: 'form-control', placeholder: 'Piso' %>
+                      </div>
+                      <div class="col-xs-2">
+                        <%= i.text_field :apartment, class: 'form-control', placeholder: 'Dpto.' %>
+                      </div>
+                    </div>
+                <% end %>
+              </div>
+              <div class="form-group">
+                <%= f.label :company_description %><br />
+                <%= f.text_area :company_description, class: 'form-control', rows: 4, placeholder: 'Ingrese aquí la descripción de la Empresa' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :profile_picture %><br/>
+                  <% if resource.profile_picture.exists? %>
+                      <%= image_tag resource.profile_picture.url(:thumb), class: 'img-thumbnail preview' %><br/>
+                      <div style="padding-top: 0.5em">
+                        <%= f.check_box :delete_profile_picture %>
+                        <%= f.label 'Borrar imágen actual' %>
+                      </div>
+                  <% else %>
+                    <div style="padding-bottom: 0.5em">
+                      <%= image_tag 'missing_thumb.jpg', class: 'img-thumbnail preview', size: ApplicationHelper::PROFILE_IMG_SIZE %>
+                    </div>
+                  <% end %>
+                  <%= f.file_field :profile_picture, class: 'form-control img-upload-preview',
+                                   accept: '.jpg, .jpeg, .png' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Cambiar contraseña' %> <i>(Déjalo en blanco si no la quieres cambiar)</i><br />
+                <%= f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: 'Nueva contraseña' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :password_confirmation %><br />
+                <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control',
+                                     placeholder: 'Confirmar nueva contraseña' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :current_password %> <i>(Necesitamos tu contraseña actual para confirmar los cambios)</i><br />
+                <%= f.password_field :current_password, autocomplete: 'off', class: 'form-control',
+                                     placeholder: 'Contraseña actual' %>
+              </div>
+
+              <div class="actions">
+                <%= f.submit 'Actualizar', class: 'btn btn-primary', data: { disable_with: 'Procesando...' } %>
+              </div>
+          <% end %>
+
+          <br>
+
+          <p><%= button_to 'Cerrar Cuenta', registration_path(resource_name), class: 'btn btn-danger',
+                           data: { confirm: '¿Estás seguro de cerrar tu cuenta de eCarriers?' }, method: :delete %></p>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-3">
+    </div>
+  </div>

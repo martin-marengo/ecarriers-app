@@ -1,0 +1,7 @@
+<p>Hola <%= @resource.email %>!</p>
+
+<p>Tu cuenta de eCarriers ha sido bloqueada debido a un excesivo número de intentos de ingreso no exitosos.</p>
+
+<p>Hacé click en el link debajo para desbloquer tu cuenta</p>
+
+<p><%= link_to 'Desbloquear mi cuenta', unlock_url(@resource, unlock_token: @token) %></p>

@@ -1,0 +1,10 @@
+<% if @shipment_request.try(:id) %>
+  $('#<%= @shipment_request.id %> .budget-info')
+      .html('<%= j render partial: 'shipment_requests/budget_info',
+      locals: { shipment_request: @shipment_request, budget: @budget }%>');
+<% end %>
+
+$('.modal').modal('hide');
+$('#budget-modal').modal('hide');
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();

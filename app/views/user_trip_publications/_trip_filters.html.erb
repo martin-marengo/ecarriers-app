@@ -1,0 +1,51 @@
+<ul class="nav" xmlns="http://www.w3.org/1999/html">
+  <li>
+    <form>
+      <%= label_tag 'Ciudad de origen' %>
+      <div class="input-group">
+        <%= text_field_tag :origin_description, nil, class: 'form-control geo-input', placeholder: 'Origen' %>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-normal btn-circle inline-btn" id="clear-origin"><i class="fa fa-times"></i></button>
+            <button type="button" class="btn btn-primary btn-circle inline-btn" id="go-origin"><i class="fa fa-chevron-right"></i></button>
+          </span>
+        <%= hidden_field_tag :origin_city_name %>
+        <%= hidden_field_tag :origin_region_name %>
+        <%= hidden_field_tag :origin_country_name %>
+        <%= hidden_field_tag :origin_lat %>
+        <%= hidden_field_tag :origin_lng %>
+      </div>
+    </form>
+  </li>
+  <br/>
+  <li>
+    <form>
+      <%= label_tag 'Ciudad de destino' %>
+      <div class="input-group">
+        <%= text_field_tag :destination_description, nil, class: 'form-control geo-input', placeholder: 'Destino' %>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-normal btn-circle inline-btn" id="clear-dest"><i class="fa fa-times"></i></button>
+            <button type="button" class="btn btn-primary btn-circle inline-btn" id="go-dest"><i class="fa fa-chevron-right"></i></button>
+          </span>
+        <%= hidden_field_tag :destination_city_name %>
+        <%= hidden_field_tag :destination_region_name %>
+        <%= hidden_field_tag :destination_country_name %>
+        <%= hidden_field_tag :destination_lat %>
+        <%= hidden_field_tag :destination_lng %>
+      </div>
+    </form>
+  </li>
+  <br/>
+  <li>
+    <form>
+      <%= label_tag 'Fecha' %>
+      <div class="input-group">
+        <%= text_field_tag :departure_date, '', class: 'form-control datepicker datepicker-with-limit', placeholder: 'Indica una fecha' %>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-normal btn-circle inline-btn" id="clear-date"><i class="fa fa-times"></i></button>
+            <button type="button" class="btn btn-primary btn-circle inline-btn" id="go-date"><i class="fa fa-chevron-right"></i></button>
+          </span>
+        <%= hidden_field_tag :dummy_this_gives_proper_spacing_between_input_and_buttons %>
+      </div>
+    </form>
+  </li>
+</ul>

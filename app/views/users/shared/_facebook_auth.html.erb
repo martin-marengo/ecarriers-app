@@ -1,0 +1,12 @@
+<div>
+  <%- if devise_mapping.omniauthable? %>
+      <%- resource_class.omniauth_providers.each do |provider| %>
+          <% if provider == :facebook %>
+              <%= link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-block btn-social btn-facebook',
+                          style: "background-color: #3B5998; color: white; margin-top: 1em;" do
+                content_tag(:i, '', class: 'fa fa-facebook') + " Iniciar sesión con #{OmniAuth::Utils.camelize(provider)}"
+              end %>
+          <% end %>
+      <% end %>
+  <% end -%>
+</div>

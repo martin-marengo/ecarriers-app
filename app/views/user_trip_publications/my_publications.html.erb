@@ -1,0 +1,58 @@
+<div class="row">
+
+  <div class="col-md-2"></div>
+
+  <div class="col-md-8">
+    <div  class="page-header custom-page-header">
+      <%= flash_messages %>
+      <h2>Mis viajes</h2>
+    </div>
+  </div>
+
+  <div class="col-md-2"></div>
+
+</div>
+<div class="row">
+
+  <div class="col-md-2"></div>
+
+  <div class="col-md-8">
+
+    <table class="table table-striped only-header-table">
+      <thead>
+      <tr>
+        <th width="15%">Salida</th>
+        <th width="25%">Orígen</th>
+        <th width="25%">Destino</th>
+        <th width="25%">Vehículo / Tipo de Carga</th>
+        <th width="10%">Estado</th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+    <div id="no-results" style="<%= (@user_trip_publications.blank?) ? 'display: block' : 'display: none' %>">
+      <h2>
+        <small>No tienes viajes publicados</small>
+      </h2>
+    </div>
+
+    <div id="user_trip_publications">
+      <%= render partial: 'trip_list_item',
+                 collection: @user_trip_publications, as: :user_trip_publication %>
+    </div>
+
+    <% if @user_trip_publications.next_page %>
+        <div id="infinite-scrolling">
+          <%= will_paginate @user_trip_publications %>
+        </div>
+    <% else %>
+        <%= render partial: 'layouts/footer_dashboard' %>
+    <% end %>
+
+  </div>
+
+  <div class="col-md-2"></div>
+
+</div>

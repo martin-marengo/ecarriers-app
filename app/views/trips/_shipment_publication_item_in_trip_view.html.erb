@@ -1,0 +1,19 @@
+<div>
+  <p>
+    <strong>
+      <%= link_to shipment_publication.title_text,
+                  carrier_path(shipment_publication.id), target: '_blank' %>
+    </strong>
+  </p>
+  <p class="text-muted">
+    <% if shipment_publication.category_name %>
+        <span class="">Categoría: <%="#{shipment_publication.category_name }"%></span>
+        <br/>
+    <% end %>
+    <strong>
+      <i class="fa fa-clock-o"></i>
+      Oferta aceptada el <%= mid_date(shipment_publication.accepted_bid.created_at.to_date) %>
+    </strong>
+  </p>
+  <hr>
+</div>

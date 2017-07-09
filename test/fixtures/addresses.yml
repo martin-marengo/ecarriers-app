@@ -1,0 +1,19 @@
+jonas_salk:
+  street_name: Jonas Salk
+  street_number: 1160
+  floor_number:
+  apartment:
+  city: san_francisco
+  location_description: San Francisco, Córdoba, Argentina
+  lat: 50
+  lng: 50
+
+buenos_aires:
+  street_name: Buenos Aires
+  street_number: 3561
+  floor_number: 5
+  apartment: 5
+  city: devoto
+  location_description: San Francisco, Córdoba, Argentina
+  lat: 50
+  lng: 50

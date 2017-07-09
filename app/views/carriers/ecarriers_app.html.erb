@@ -1,0 +1,46 @@
+<div class="row">
+
+  <div class="col-md-3">
+  </div>
+
+  <div class="col-md-6">
+    <div  class="page-header custom-page-header">
+      <%= flash_messages %>
+      <h2>Aplicación de Reporte de Envíos</h2>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-3">
+  </div>
+
+  <div class="col-md-6">
+
+    <div class="well well-md">
+      <h3>Descarga tu aplicación</h3>
+      <p>Con esta aplicación para Android, todos tus viajantes podrán recibir en sus teléfonos los viajes que deben
+        realizar, junto con el detalle de los envíos de cada viaje. Podrán indicar el inicio y el fin de un viaje,
+        así como marcar cada envío como entregado. También podrán reportar en cualquier momento su ubicación actual
+        para que tus clientes sepan en todo momento dónde se encuentran sus paquetes.</p>
+
+      <p>Para usar la aplicación, puedes hacer click en el botón de abajo y descargarte el archivo APK.
+        Debes enviarte el archivo por mail y acceder desde tu teléfono. Haciendo click en el archivo,
+        la aplicación comenzará a instalarse.</p>
+
+      <br/>
+
+      <%= link_to content_tag(:i, '', class: 'fa fa-download') + ' Descargar APK v1', download_apk_carriers_path, class: 'btn btn-primary btn'%>
+    </div>
+
+  </div>
+
+  <div class="col-md-3">
+  </div>
+
+</div>

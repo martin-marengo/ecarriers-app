@@ -1,0 +1,109 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+
+    <div class="col-md-8">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>Publique su anuncio</h4>
+        </div>
+
+        <div class="panel-body devise-panel">
+          <%= form_for(@shipmentPublication, url: wizard_path(:addresses_info), method: :put, html: {role: 'form'}) do |f| %>
+              <%= show_errors_of @shipmentPublication if show_errors? %>
+
+              <div class="form-group form-row col-xs-3">
+                <%= label_tag 'Cantidad de artículos' %><br />
+                
+                <%= number_field_tag :articles_number, @shipmentPublication.items.length, autofocus: true, 
+                                     placeholder: 'Cantidad de artículos a transportar', min: 1, autocomplete: 'off', 
+                                     onkeydown: 'return false;', id: 'articles-number-field', class: 'form-control', 
+                                     required: true %>
+              </div>
+
+              <div class="form-group form-row">
+                <%= f.label 'Título de la publicacion' %><br />
+                <%= f.text_field :title, class: 'form-control', placeholder: 'Título de la publicación', 
+                                 required: true %>
+              </div>
+
+              <hr>
+
+              <div id="articles-list" class="form-row">
+                <% @shipmentPublication.items.each_with_index do |item, index| %>
+                    <%= render partial: 'article_info_form', locals: {item: item, index: index} %>
+                <% end %>
+              </div>
+
+              <div class="form-group form-row">
+                <%= f.label :special_care, "¿Los artículos necesitan cuidados especiales?: " %>
+                <%= f.radio_button :special_care, 'true' %>
+                <%= f.label :yes, 'Sí' %>
+                <%= f.radio_button :special_care, 'false', checked: true %>
+                <%= f.label :no, 'No' %>
+              </div>
+
+              <div class="form-group form-row">
+                <%= f.label :blanket_wrap, "¿Los artículos necesitan ser envueltos con mantas?: " %>
+                <%= f.radio_button :blanket_wrap, 'true' %>
+                <%= f.label :yes, 'Sí' %>
+                <%= f.radio_button :blanket_wrap, 'false', checked: true %>
+                <%= f.label :no, 'No' %>
+              </div>
+
+              <div hidden="hidden">
+                <%= text_field_tag :category_id, @shipmentPublication.category.id %>
+              </div>
+
+              <div class="actions form-row">
+                <a href="javascript:history.back()" class="btn btn-warning">Volver atrás</a>
+                <%= f.submit 'Continuar', class: 'btn btn-primary' %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $(function () {
+    last_number = 1;
+
+    $('#articles-number-field').change(function () {
+      var number_of_articles = $('#articles-number-field').val();
+
+      if (upSpinnerHasPressed(number_of_articles)) {
+        $("#articles-number-field").prop('disabled', true);
+
+        $.ajax({
+          url: "<%= item_info_shipment_publication_path %>",
+          method: 'POST',
+          data: { number_of_articles: number_of_articles },
+          success: function(result){
+            $("#articles-list").append(result);
+            $("#articles-number-field").prop('disabled', false);
+          },
+          error: function (result) {
+            alert('Un error ha ocurrido. Por favor, recargue la página.');
+          }
+        });
+      }
+      else {
+        $("#item-" + (last_number - 1)).remove();
+      }
+
+      last_number = number_of_articles;
+
+    });
+      
+    function upSpinnerHasPressed(number_of_articles) {
+      return (last_number < number_of_articles);
+    }
+  });
+</script>

@@ -1,0 +1,35 @@
+<div class="bid-item info" id="<%= bid.id %>">
+  <div class="row" style="margin-bottom: 0.5em;">
+    <div class="col-md-5">
+      <h3 class="text-primary" style="margin: 5px 0 0 0;"><strong>$<%= bid.price %></strong></h3>
+    </div>
+    <div class="col-md-7" style="text-align: right">
+      <span class="chat-button">
+        <% if bid.conversation %>
+            <%= render partial: 'conversations/existing_conversation_button', locals: { conversation: bid.conversation } %>
+        <% else %>
+            <%= link_to new_from_bid_conversation_path(bid_id: bid.id), method: :post, class: 'btn btn-info btn-chat-custom',
+                        style: 'margin-right: 0.5em;', remote: true do %>
+                <i class="fa fa-comment"></i>
+            <% end %>
+        <% end %>
+      </span>
+    </div>
+  </div>
+  <%= bid.description %>
+  <% if bid.carrier %>
+      <h4 style="margin: 10px 0 2px 0;"><small>
+        <i class="fa fa-truck"></i>&nbsp;<%= link_to bid.carrier.business_name,
+                                                     carrier_view_shipment_publication_path(
+                                                         id: bid.shipment_publication.id,
+                                                         carrier_id: bid.carrier.id),
+                                                     remote: true,
+                                                     class: 'carrier_link'%><%= ", #{bid.carrier.email}" %>
+      </small></h4>
+  <% end %>
+  <div>
+    <%= link_to new_accept_bid_path(bid_id: bid.id), class: 'accept-bid-button', remote: true do %>
+        <i class="fa fa-check icon-has-right-text-near"></i>Aceptar oferta
+    <% end %>
+  </div>
+</div>

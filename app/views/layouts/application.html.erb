@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : 'eCarriers' %>" />
+  <meta name="author" content="Martín Marengo (marengo.martin@gmail.com) - Agustín Ruatta (agustinruatta@gmail.com)">
+
+  <%= favicon_link_tag 'favicon-big.png' %>
+
+  <title><%= content_for?(:title) ? yield(:title) : 'eCarriers' %></title>
+
+  <script src=<%= "#{Rails.application.secrets.google_map_url}" %>></script>
+  
+  <%= stylesheet_link_tag 'application_custom', media: 'all', 'data-turbolinks-track' => true%>
+  <%= javascript_include_tag 'application_custom', 'data-turbolinks-track' => true %>
+
+  <!-- Custom Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <%= csrf_meta_tags %>
+
+</head>
+<body id="page-top" class="index common-page">
+
+<div class="main-container">
+  <div class="container">
+      <!-- Navigation -->
+      <%= render partial: 'layouts/navigation_bar' %>
+  </div>
+  <main role="main">
+    <div id="container">
+      <div class="default-box">
+        <div class="loading">
+          <div class="loader"></div>
+        </div>
+        <%= yield %>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Footer -->
+<%= render partial: 'layouts/footer_small' %>
+
+<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+<div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
+  <a class="btn btn-primary" href="#page-top">
+    <i class="fa fa-chevron-up"></i>
+  </a>
+</div>
+
+</body>
+
+</html>

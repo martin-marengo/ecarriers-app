@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <div  class="page-header custom-page-header">
+      <%= flash_messages %>
+      <h2><%= @title %></h2>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+<div class="row">
+
+  <div class="col-md-2"></div>
+
+  <div class="col-md-8">
+
+    <table class="table table-striped only-header-table">
+      <thead>
+      <tr>
+        <th width="35%">Publicación</th>
+        <th width="50%">Descripción de la oferta</th>
+        <th width="15%" style="text-align: center">Precio</th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+    <div id="no-results" style="<%= (@bids and !@bids.blank?)? 'display: none' : 'display: block' %>">
+      <h2>
+        <small>No hay ofertas pendientes :(</small>
+      </h2>
+    </div>
+
+    <div id="bids">
+      <%= render partial: 'bids_list_item',
+                 collection: @bids, as: :bid %>
+    </div>
+
+    <% if @bids.next_page %>
+        <div id="infinite-scrolling">
+          <%= will_paginate @bids %>
+        </div>
+    <% else %>
+        <%= render partial: 'layouts/footer_dashboard' %>
+    <% end %>
+
+  </div>
+
+  <div class="col-md-2"></div>
+
+</div>

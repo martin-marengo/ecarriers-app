@@ -1,0 +1,27 @@
+one:
+  user: cacho_castaña
+  origin_city: san_francisco
+  destination_city: devoto
+  vehicle_description: Car
+  departure_date: 2017-01-01
+  departure_time: <%= Time.now %>
+  arrival_date: 2017-01-02
+  arrival_time: <%= Time.now %>
+  origin_lat: 50
+  origin_lng: 50
+  destination_lat: 50
+  destination_lng: 50
+  
+two:
+  user: pepe_alfonso
+  origin_city: san_francisco
+  destination_city: devoto
+  vehicle_description: Car
+  departure_date: 2017-01-01
+  departure_time: <%= Time.now %>
+  arrival_date: 2017-01-02
+  arrival_time: <%= Time.now %>
+  origin_lat: 50
+  origin_lng: 50
+  destination_lat: 50
+  destination_lng: 50

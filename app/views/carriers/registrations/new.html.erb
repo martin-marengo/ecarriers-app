@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4>Registrarse como Transportista</h4>
+        </div>
+
+        <div class="panel-body devise-panel">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {role: 'form'}) do |f| %>
+              <%= show_messages %>
+
+              <div class="form-group">
+                <%= f.label 'Razón Social' %><br />
+                <%= f.text_field :business_name, autofocus: true, class: 'form-control', placeholder: 'Razón Social' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Email' %><br />
+                <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Teléfono' %><br />
+                <%= f.telephone_field :phone_number, class: 'form-control', placeholder: 'Teléfono' %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label 'Domicilio' %><br />
+                <%= f.fields_for :address do |i| %>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <%= i.text_field :location_description, class: 'form-control geo-input', placeholder: 'Ciudad' %>
+                        <%= i.hidden_field :city_name, value: resource.address.city_name, id: 'city_name' %>
+                        <%= i.hidden_field :region_name, value: resource.address.region_name, id: 'region_name' %>
+                        <%= i.hidden_field :country_name, value: resource.address.country_name, id: 'country_name' %>
+                        <%= i.hidden_field :lat, value: resource.address.lat, id: 'lat' %>
+                        <%= i.hidden_field :lng, value: resource.address.lng, id: 'lng' %>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <%= i.text_field :street_name, class: 'form-control', placeholder: 'Calle' %>
+                      </div>
+                      <div class="col-xs-2">
+                        <%= i.text_field :street_number, class: 'form-control', placeholder: 'Número' %>
+                      </div>
+                      <div class="col-xs-2">
+                        <%= i.text_field :floor_number, class: 'form-control', placeholder: 'Piso' %>
+                      </div>
+                      <div class="col-xs-2">
+                        <%= i.text_field :apartment, class: 'form-control', placeholder: 'Dpto.' %>
+                      </div>
+                    </div>
+                <% end %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :company_description %><br />
+                  <%= f.text_area :company_description, class: 'form-control', rows: 4, placeholder: 'Ingrese aquí la descripción de la Empresa' %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :profile_picture %>
+                  <%= f.file_field :profile_picture, class: 'form-control', accept: '.jpg, .jpeg, .png' %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :password %>
+                  <% if @minimum_password_length %>
+                      <em>(<%= @minimum_password_length %> caracteres al menos)</em>
+                  <% end %><br />
+                  <%= f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: 'Contraseña' %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :password_confirmation %><br />
+                  <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control', placeholder: 'Confirmar contraseña' %>
+                </div>
+
+                <div class="actions">
+                  <%= f.submit 'Registrarse', class: 'btn btn-primary', data: { disable_with: 'Procesando...' } %>
+                </div>
+          <% end %>
+          </div>
+    </div>
+    <%= render 'carriers/shared/links' %>
+  </div>
+  <div class="col-md-2">
+  </div>
+</div>
+</div>

@@ -1,0 +1,41 @@
+<div class="row">
+
+  <div class="col-md-3">
+  </div>
+
+  <div class="col-md-6">
+    <div  class="page-header custom-page-header">
+      <%= flash_messages %>
+      <h2>Mi reputación en eCarriers</h2>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-3">
+  </div>
+
+  <div class="col-md-6">
+
+    <div class="jumbotron">
+      <% if !@carrier_scorings.blank? %>
+          <h2>Valoración promedio:</h2>
+          <p class="scoring-detail"><strong>Calidad del servicio:</strong> <%= CarrierScoring.average_service_quality(@carrier_scorings).to_s + '/' + CarrierScoring::MAX_SCORE.to_s %><br/>
+            <strong>Tiempo de entrega:</strong> <%= CarrierScoring.average_delivery_time(@carrier_scorings).to_s + '/' + CarrierScoring::MAX_SCORE.to_s %><br/>
+            <strong>Recomendados:</strong> <%= CarrierScoring.recommended_quantity(@carrier_scorings).to_s + ' de ' + @carrier_scorings.size.to_s %></p>
+      <% else %>
+          <h2>Aún no tienes calificaciones.</h2>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="col-md-3">
+  </div>
+
+</div>

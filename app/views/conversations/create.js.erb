@@ -1,0 +1,19 @@
+$('.loading').css("display", "none");
+
+<% if @conversation.errors.empty? %>
+
+  $('#body-input').val('');
+  $('.modal-body').html('<%= j content_tag(:div, '', class: 'messages_flash_container') %>')
+      .append('<%= j content_tag(:ul, '', class: 'chat') %>');
+  $('.chat').html('<%= j render partial: 'messages/message', collection: @conversation.messages, as: :message %>');
+
+  $('#<%= @conversation.topic.id %> .chat-button')
+      .html('<%= j render partial: 'conversations/existing_conversation_button', locals: { conversation: @conversation } %>');
+
+  $('.modal-footer').html('<%= j render partial: 'messages/message_form' %>');
+
+<% else %>
+
+  $('.messages_flash_container').html('<%= j flash_messages %>');
+
+<% end %>

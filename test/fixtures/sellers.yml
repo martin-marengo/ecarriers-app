@@ -1,0 +1,14 @@
+one:
+  business_name: Vendedor
+  email: empresa@uiooisjdad.com
+  phone_number: 3564505050
+  address: Calle Falsa 123
+  confirmed_at: <%= Date.today %>
+  api_token: gSh3IJB6gzckoi6DEfHtiw
+  
+two:
+  business_name: Vendedor B
+  email: vendedor@b.com
+  phone_number: 3564606060
+  address: Calle Verdadera 123
+  confirmed_at: <%= Date.today %>

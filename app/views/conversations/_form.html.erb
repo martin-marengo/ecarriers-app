@@ -1,0 +1,64 @@
+<div id="messages-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><%= @conversation.title(@current_person) %></h4>
+      </div>
+
+      <% if !@conversation.id %>
+          <%# New conversation, create conversation and nested message %>
+
+          <div class="modal-body">
+            <div class="messages_flash_container"></div>
+            <div class="new-conversation">
+              <h2><small>Aún no hay mensajes</small></h2><br/>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <%= form_for @conversation, remote: true, html: {id: 'conversation-form'} do |f| %>
+
+                <div class="input-group">
+                  <% if @conversation.topic %>
+                      <%= f.hidden_field :topic_id, value: @conversation.topic.id %>
+                      <% if @conversation.topic.instance_of?(Bid) %>
+                          <%= f.hidden_field :topic_type, value: Bid.name %>
+                      <% elsif @conversation.topic.instance_of?(ShipmentRequest) %>
+                          <%= f.hidden_field :topic_type, value: ShipmentRequest.name %>
+                      <% end %>
+                  <% end %>
+
+                  <%= f.fields_for :messages do |builder| %>
+                      <%= builder.text_field :body, class: 'form-control', maxlength: 250, autocomplete: 'off',
+                                             placeholder: 'Escribe un comentario...', id: 'body-input', autofocus: true %>
+                  <% end %>
+
+                  <span class="input-group-btn">
+                      <%= f.button 'Enviar', class: 'btn btn-warning slow-job-button', id: 'submit-conversation' %>
+                  </span>
+
+                </div>
+            <% end %>
+          </div>
+
+      <% else %>
+          <%# Existing conversation, create new message %>
+
+          <div class="modal-body">
+            <div class="messages_flash_container"></div>
+            <ul class="chat">
+              <%= render partial: 'messages/message', collection: @conversation.messages, as: :message %>
+            </ul>
+          </div>
+
+          <div class="modal-footer">
+            <%= render partial: 'messages/message_form' %>
+          </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>
